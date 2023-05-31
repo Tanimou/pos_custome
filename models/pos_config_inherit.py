@@ -6,6 +6,7 @@ class PosConfigInherit(models.Model):
     _description ='Point of sale configuration inherit'
 
     complementary_currency = fields.Many2one('res.currency','Currency')
+    complementary_currency_symbol=fields.Char(related="complementary_currency.symbol",string="Symbol")
     # create a complementary currency field that is a many2many field of res.currency
     # complementary_currency = fields.Many2many('res.currency',string='Currency')
     # complementary_currency = fields.Many2many(
