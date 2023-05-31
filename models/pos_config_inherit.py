@@ -10,7 +10,7 @@ class PosConfigInherit(models.Model):
     complementary_currency = fields.Many2one('res.currency',string='Currency')
     complementary_currency_position = fields.Selection(related='complementary_currency.position', readonly=True)
     complementary_currency_symbol = fields.Char(related='complementary_currency.symbol',string='symbol')
-    taux = fields.Float('taux de change')
+    taux = fields.Float('taux de change', digits=(16,16))
 
 
 # @api.constrains('pricelist_id', 'use_pricelist', 'available_pricelist_ids', 'journal_id', 'invoice_journal_id', 'payment_method_ids')
