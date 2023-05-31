@@ -7,7 +7,9 @@ class PosConfigInherit(models.Model):
 
     complementary_currency = fields.Many2one('res.currency','Currency')
     complementary_currency_symbol=fields.Char(related="complementary_currency.symbol",string="Symbol")
+
     complementary_currency_position = fields.Selection(related='complementary_currency.position', readonly=True)
+
     # create a complementary currency field that is a many2many field of res.currency
 
     # complementary_currency = fields.Many2many('res.currency',string='Currency')
@@ -18,7 +20,9 @@ class PosConfigInherit(models.Model):
     #     column2='currency_id',
     #     string='Complementary Currencies'
     # )
+
     taux = fields.Float('taux de change', digits=(16,16))
+
     # complementary_currency_ids=[]
     
     # @api.onchange('complementary_currency')
