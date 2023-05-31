@@ -1,0 +1,14 @@
+<!-- <?xml version="1.0" encoding="UTF-8"?>
+<template id="ClosePosPopup" inherit_id="point_of_sale.ClosePosPopup">
+    <xpath expr="//*[hasclass('payment-methods-overview')]/table/thead" position="replace">
+        <thead>
+            <tr>
+                <th>Payment Method</th>
+                <th>Expected</th>
+                <th>Expected (USD)</th>
+                <th style="width: 25%">Counted</th>
+                <th style="width: 20%">Difference</th>
+            </tr>
+        </thead>
+    </xpath>
+</template> -->
