@@ -28,7 +28,9 @@
                     'pos_custome/static/src/js/inherit_orderSummary.js',
                     'pos_custome/static/src/xml/InheritOrderSummary.xml',
                     'pos_custome/static/src/xml/inheritCashMovePopup.xml',
+                    'pos_custome/static/src/xml/inheritClosePopup.xml',
                     'pos_custome/static/src/js/inherit_CashMovePopup.js',
+                    'pos_custome/static/src/js/inherit_closePopup.js',
                     
                 ],
             },
