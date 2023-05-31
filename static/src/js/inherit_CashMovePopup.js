@@ -5,7 +5,7 @@ odoo.define('pos_custome.InheritCashMovePopup', function (require) {
     const Registries = require('point_of_sale.Registries');
     const inherit_models= require('pos_custome.Models')
     const { useState } = owl;
-var active_currency=[]
+
     const InheritCashMovePopup = (CashMovePopup) =>
         class extends CashMovePopup {
             setup() {
@@ -15,23 +15,21 @@ var active_currency=[]
                     inputType: '', // '' | 'in' | 'out'
                     inputAmount: '',
                     inputReason: '',
-                    inputCurrency: '',
+                    inputCurrency: 'XOF',
                     inputHasError: false,
                 });
             }
-            reasonValues() {
-                const values = [{ 'name': ' ', 'value': 1 }, { 'name': 'Avance sur salaire', 'value': 2 },
-                { 'name': 'Taxi', 'value': 3 }, { 'name': 'Salaire', 'value': 4 },
-                { 'name': 'CIE', 'value': 5 }, { 'name': 'SODECI', 'value': 6 },
-                    { 'name': 'Matériels de nettoyage', 'value': 7 }, { 'name': 'Matériels caisse', 'value': 8 }, { 'name': 'Autres', 'value': 9 }]
-                // const active_currencies = inherit_models.new_currency
-                // console.log("active_currencies", active_currencies)
-                console.log("compleme,tary_currency", this.env.pos.get_order().pos.currency.name)
-                console.log("compleme,tary_currency", this.env.pos.config.complementary_currency[1])
-                return values
-            }
+            // reasonValues() {
+            //     const values = [{ 'name': ' ', 'value': 1 }, { 'name': 'Avance sur salaire', 'value': 2 },
+            //     { 'name': 'Taxi', 'value': 3 }, { 'name': 'Salaire', 'value': 4 },
+            //     { 'name': 'CIE', 'value': 5 }, { 'name': 'SODECI', 'value': 6 },
+            //         { 'name': 'Matériels de nettoyage', 'value': 7 }, { 'name': 'Matériels caisse', 'value': 8 }, { 'name': 'Autres', 'value': 9 }]
+            //     // const active_currencies = inherit_models.new_currency
+            //     // console.log("active_currencies", active_currencies)
+            //                 return values
+            // }
              active_currency() {
-
+                 console.log("compleme,tary_currency", this.env.pos)
                  return [{ 'name': this.env.pos.get_order().pos.currency.name },{ 'name': this.env.pos.config.complementary_currency[1] }];
             }
                 
