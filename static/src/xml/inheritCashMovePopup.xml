@@ -10,7 +10,7 @@
                                     Devise
     </span>
     <select t-model="state.inputCurrency">
-        <t t-foreach="reasonValues()" t-as="active_currency" t-key="active_currency.name">
+        <t t-foreach="active_currency()" t-as="active_currency" t-key="active_currency.name">
             <option t-att-value="active_currency.name">
                 <t t-esc="active_currency.name"/>
             </option>

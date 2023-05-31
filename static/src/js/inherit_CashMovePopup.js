@@ -26,22 +26,13 @@ var active_currency=[]
                     { 'name': 'Matériels de nettoyage', 'value': 7 }, { 'name': 'Matériels caisse', 'value': 8 }, { 'name': 'Autres', 'value': 9 }]
                 // const active_currencies = inherit_models.new_currency
                 // console.log("active_currencies", active_currencies)
-                console.log("compleme,tary_currency", this.env.pos.config.complementary_currency)
+                console.log("compleme,tary_currency", this.env.pos.get_order().pos.currency.name)
+                console.log("compleme,tary_currency", this.env.pos.config.complementary_currency[1])
                 return values
             }
              active_currency() {
-                //get active currency in res.currency
-            //     active_currency = await this.env.services.rpc(
-            //         {
-            //             model: 'res.currency',
-            //             method: 'search_read',
-            //             domain: [['active', '=', true]],
-            //             fields: ['name', 'symbol'],
-            //         })
-            // console.log("active_currency",active_currency)
-                 // return active_currency
-                 
-                 return this.env.pos.config.complementary_currency
+
+                 return [{ 'name': this.env.pos.get_order().pos.currency.name },{ 'name': this.env.pos.config.complementary_currency[1] }];
             }
                 
             confirm() {
