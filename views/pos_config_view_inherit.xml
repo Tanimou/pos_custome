@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="pos_config_view_form_inherit" model="ir.ui.view">
+            <field name="name">pos.config.form.view</field>
+            <field name="model">pos.config</field>
+            <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@id='other_devices']" position="after">
+                    <div class="col-12 col-lg-6 o_setting_box" id ="complementary_currency">
+                        <div class="o_setting_right_pane">
+                            <label for="complementary_currency" string="Choix de la devise complementaire"/>
+                            <div class="text-muted mb16">
+                                <field name="complementary_currency"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box" id="taux">
+                        <div class="o_setting_right_pane">
+                            <label for="taux" string="taux de change"/>
+                            <field name="taux"/>
+                            <div class="text-muted mb16">
+                                Taux de change en fonction de la devise initiale
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

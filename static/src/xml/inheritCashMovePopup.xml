@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="InheritCashMovePopup" t-inherit="point_of_sale.CashMovePopup" t-inherit-mode="extension" owl="1">
+        <xpath expr="//*[hasclass('cash-move-popup')]//*[hasclass('body')]//*[hasclass('cash-move')]//*[hasclass('input-amount')]" position="replace">
+
+<div class="input-amount">
+                                    
+    
+    <span class="input-type">
+                                    Devise
+    </span>
+    <select t-model="state.inputCurrency">
+        <t t-foreach="reasonValues()" t-as="active_currency" t-key="active_currency.name">
+            <option t-att-value="active_currency.name">
+                <t t-esc="active_currency.name"/>
+            </option>
+        </t>
+    </select>
+    <span t-on-click="() => this.onClickButton('in')" class="input-type" t-att-class="{ highlight: state.inputType == 'in' }">
+                                    Cash In
+    </span>
+    <span t-on-click="() => this.onClickButton('out')" class="input-type" t-att-class="{ 'red-highlight': state.inputType == 'out' }">
+                                    Cash Out
+    </span>
+    <div class="input-field">
+        <input type="text" name="amount" t-model="state.inputAmount" t-ref="input-amount-ref" t-on-keypress="_onAmountKeypress"/>
+        <t t-if="env.pos.currency.symbol.length > 1">
+            <span class="left-currency" t-esc="env.pos.currency.symbol" />
+        </t>
+        <t t-else="">
+            <span class="currency" t-esc="env.pos.currency.symbol" />
+        </t>
+    </div>
+</div>
+        </xpath>
+
+    </t>
+</templates>
+
