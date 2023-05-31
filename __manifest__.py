@@ -20,12 +20,13 @@
     'data': [
         'security/ir.model.access.csv',
         'views/pos_config_view_inherit.xml',
+        'views/res_config_settings_view_inherit.xml',
     ],
     'assets': {
                 'point_of_sale.assets': [
                     'pos_custome/static/src/js/inherit_models.js',
-                    # 'pos_custome/static/src/js/inherit_orderSummary.js',
-                    # 'pos_custome/static/src/xml/InheritOrderSummary.xml',
+                    'pos_custome/static/src/js/inherit_orderSummary.js',
+                    'pos_custome/static/src/xml/InheritOrderSummary.xml',
                     'pos_custome/static/src/xml/inheritCashMovePopup.xml',
                     'pos_custome/static/src/js/inherit_CashMovePopup.js',
                     
