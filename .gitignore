@@ -1,0 +1,3 @@
+# exclude the folder __pycache__ of the folder models
+models/__pycache__/*
+
