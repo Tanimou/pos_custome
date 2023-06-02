@@ -13,12 +13,7 @@
                     <span class="value">
                         <t t-esc="_total" /> 
                     </span>
-                    <div t-if="_tax.hasTax" class="subentry">
-                        Taxes <t t-esc="_currencyname" />:
-                        <span class="value">
-                            <t t-esc="_tax.displayAmount" />
-                        </span>
-                    </div>
+                    
                 </div>
             </div>
         </div>
