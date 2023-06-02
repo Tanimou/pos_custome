@@ -2,7 +2,7 @@
 <templates id="template" xml:space="preserve">
     <t t-name="InheritClosePopup" t-inherit="point_of_sale.ClosePosPopup" t-inherit-mode="extension" owl="1">
         <xpath expr="//*[hasclass('close-pos-popup')]" position="replace">
-            <div class="popup close-pos-popup" style="padding: 0 50px 0 50px">
+            <div class="popup close-pos-popup" style="padding: 0 50px 0 50px;max-width:800px !important">
 
                 <header style="margin:0 -50px">
                     <div class="title">Closing Session</div>
@@ -36,7 +36,7 @@
                                         <td
                                             t-on-input="() => this.handleInputChange(defaultCashDetails.id)">
                                             <div class="normal">
-                                                <input class="inputt" style="" type="number"
+                                                <input class="pos-input" style="" type="number"
                                                     t-model.number="state.payments[defaultCashDetails.id].counted" />
                                                 <div class="button icon" t-on-click="openDetailsPopup">
                                                     <i class="fa fa-calculator" role="img"
