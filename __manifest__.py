@@ -31,7 +31,9 @@
                     'pos_custome/static/src/js/inherit_CashMovePopup.js',
                     'pos_custome/static/src/xml/Popups/InheritCashOpeningPopup.xml',
                     'pos_custome/static/src/xml/inheritClosePopup.xml',
-                    'pos_custome/static/src/css/popup/closing_popup.css',
+                    'pos_custome/static/src/js/Popups/InheritCashOpeningPopup.js',
+                    'pos_custome/static/src/js/Popups/InheritClosePopup.js',
+                    'pos_custome/static/src/css/popup/popup.css',
                     # 'pos_custome/static/src/js/inherit_closePopup.js',
                     
                 ],
