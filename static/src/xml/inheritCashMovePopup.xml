@@ -1,60 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
     <t t-name="InheritCashMovePopup" t-inherit="point_of_sale.CashMovePopup" t-inherit-mode="extension" owl="1">
-        <xpath
-            expr="//*[hasclass('cash-move-popup')]//*[hasclass('body')]//*[hasclass('cash-move')]//*[hasclass('input-amount')]"
-            position="replace">
+        <xpath expr="//*[hasclass('cash-move-popup')]" position="replace">
 
-            <div class="input-amount">
+            <div class="popup cash-move-popup" style="max-width:5000px;width:40%">
+                <main class="body">
+                    <div class="cash-move">
+                        <div class="input-amount">
+                            <span class="input-type">
+                                Devise
+                            </span>
+                            <select t-model="state.inputCurrency">
+                                <t t-foreach="active_currency()" t-as="active_currency" t-key="active_currency.name">
+                                    <option t-att-value="active_currency.name">
+                                        <t t-esc="active_currency.name" />
+                                    </option>
+                                </t>
+                            </select>
+                            <span t-on-click="() => this.onClickButton('in')" class="input-type"
+                                t-att-class="{ highlight: state.inputType == 'in' }">
+                                Cash In
+                            </span>
+                            <span t-on-click="() => this.onClickButton('out')" class="input-type"
+                                t-att-class="{ 'red-highlight': state.inputType == 'out' }">
+                                Cash Out
+                            </span>
+                            <div class="input-field">
+                                <input type="text" name="amount" t-model="state.inputAmount" t-ref="input-amount-ref"
+                                    t-on-keypress="_onAmountKeypress" />
+                                <t t-if="env.pos.currency.symbol.length > 1">
 
-                <span class="input-type">
-                    Devise
-                </span>
-                <select t-model="state.inputCurrency">
-                    <t t-foreach="active_currency()" t-as="active_currency" t-key="active_currency.name">
-                        <option t-att-value="active_currency.name">
-                            <t t-esc="active_currency.name" />
-                        </option>
-                    </t>
-                </select>
-                <span t-on-click="() => this.onClickButton('in')" class="input-type"
-                    t-att-class="{ highlight: state.inputType == 'in' }">
-                    Cash In
-                </span>
-                <span t-on-click="() => this.onClickButton('out')" class="input-type"
-                    t-att-class="{ 'red-highlight': state.inputType == 'out' }">
-                    Cash Out
-                </span>
-                <div class="input-field">
-                    <input type="text" name="amount" t-model="state.inputAmount" t-ref="input-amount-ref"
-                        t-on-keypress="_onAmountKeypress" />
-                    <t t-if="env.pos.currency.symbol.length > 1">
+                                    <t t-if="state.inputCurrency==env.pos.currency.name">
+                                        <span class="left-currency" t-esc="env.pos.currency.symbol" />
+                                    </t>
 
-                        <t t-if="state.inputCurrency==env.pos.currency.name">
-                            <span class="left-currency" t-esc="env.pos.currency.symbol" />
-                        </t>
+                                    <t t-else="">
+                                        <span class="left-currency"
+                                            t-esc="env.pos.config.complementary_currency_symbol" />
+                                    </t>
+                                    <!-- <span class="left-currency" t-esc="env.pos.currency.symbol" /> -->
 
-                        <t t-else="">
-                        <span class="left-currency" t-esc="env.pos.config.complementary_currency_symbol" />
-                        </t>
-                        <!-- <span class="left-currency" t-esc="env.pos.currency.symbol" /> -->
+                                </t>
+                                <t t-else="">
 
-                    </t>
-                    <t t-else="">
+                                    <t t-if="state.inputCurrency==env.pos.currency.name">
+                                        <span class="currency" t-esc="env.pos.currency.symbol" />
 
-                        <t t-if="state.inputCurrency==env.pos.currency.name">
-                        <span class="currency" t-esc="env.pos.currency.symbol" />
+                                    </t>
 
-                        </t>
+                                    <t t-else="">
+                                        <span class="currency" t-esc="env.pos.config.complementary_currency_symbol" />
+                                    </t>
+                                    <!-- <span class="currency" t-esc="env.pos.currency.symbol" /> -->
 
-                        <t t-else="">
-                        <span class="currency" t-esc="env.pos.config.complementary_currency_symbol" />
-                        </t>
-                        <!-- <span class="currency" t-esc="env.pos.currency.symbol" /> -->
-
-                    </t>
-                </div>
+                                </t>
+                            </div>
+                        </div>
+                        <textarea name="reason" t-model="state.inputReason" placeholder="Reason"></textarea>
+                        <span t-if="state.inputHasError" class="error-message">
+                            <t t-esc="errorMessage" />
+                        </span>
+                    </div>
+                </main>
+                <footer class="footer cash-move">
+                    <div class="button confirm disable highlight" t-on-click="confirm">
+                        Confirm
+                    </div>
+                    <div class="button cancel" t-on-click="cancel">
+                        <t t-esc="props.cancelText" />
+                    </div>
+                </footer>
             </div>
+
         </xpath>
 
     </t>
