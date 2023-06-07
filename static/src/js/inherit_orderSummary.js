@@ -1,4 +1,4 @@
-odoo.define('custom_module.OrderSummary', function(require) {
+odoo.define('pos_custome.CustomOrderSummary', function(require) {
     'use strict';
 
     const OrderSummary = require('point_of_sale.OrderSummary');

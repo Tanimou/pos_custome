@@ -7,6 +7,7 @@ odoo.define('pos_custome.InheritClosePopup', function (require) {
 
     const InheritClosePopup = (ClosePosPopup) =>
         class extends ClosePosPopup {
+            
             format_currency_amount(amount){
                 const pre = this.env.pos.config.complementary_currency_position === 'before';
                 console.log("=======++++++=====",pre,"=====+++++=======")
@@ -25,6 +26,21 @@ odoo.define('pos_custome.InheritClosePopup', function (require) {
                     return ' ';
                }
                 
+            }
+            updateCountedCash({ total,totalcurrency, moneyDetailsNotes, moneyDetails }) {
+                this.state.payments[this.defaultCashDetails.id].counted = total;
+                this.state.payments[this.defaultCashDetails.id].difference =
+                    this.env.pos.round_decimals_currency(this.state.payments[[this.defaultCashDetails.id]].counted - this.defaultCashDetails.amount);
+
+                this.state.payments[this.defaultCashDetailsCurrency.id].counted = totalcurrency;
+                this.state.payments[this.defaultCashDetailsCurrency.id].difference =
+                    this.env.pos.round_decimals_currency(this.state.payments[[this.defaultCashDetailsCurrency.id]].counted - this.defaultCashDetailsCurrency.amount);
+                if (moneyDetailsNotes) {
+                    this.state.notes = moneyDetailsNotes; 
+                }
+                this.manualInputCashCount = false;
+                this.moneyDetails = moneyDetails;
+                this.closeDetailsPopup();
             }
         };
     Registries.Component.extend(ClosePosPopup, InheritClosePopup);

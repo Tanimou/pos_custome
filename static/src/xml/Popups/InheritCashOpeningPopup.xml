@@ -6,7 +6,7 @@
                         <t t-set="_currencyname" t-value="get_related_currency_name()"/>
                         <span class="info-title">Opening cash (<t t-esc="_currencyname" />)</span>
                         <div class="cash-input-sub-section" t-on-input="handleInputChange">
-                            <input class="pos-input" type="number" t-model.number="state.openingCash"/>
+                            <input class="pos-input" type="number" t-model.number="state.openingCashCurrency"/>
                             <div class="button icon" t-on-click="openDetailsPopup">
                                 <i class="fa fa-calculator" role="img" title="Open the money details popup"/>
                             </div>
