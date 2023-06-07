@@ -13,12 +13,26 @@ odoo.define('pos_custome.InheritCashOpeningPopup', function (require) {
                 this.state = useState({
                     notes: "",
                     openingCash: this.env.pos.pos_session.cash_register_balance_start || 0,
-                    openingCashCurrency: this.env.pos.pos_session.cash_register_balance_start|| 0,
+                    openingCashCurrency: this.env.pos.pos_session.cash_register_balance_start_currency|| 0,
                     displayMoneyDetailsPopup: false,
                 });
             }
+            async confirm() {  
+                this.env.pos.pos_session.cash_register_balance_start = this.state.openingCash;
+                this.env.pos.pos_session.cash_register_balance_start_currency = this.state.openingCashCurrency;
+                this.env.pos.pos_session.state = 'opened';
+                this.rpc({ 
+                       model: 'pos.session',
+                        method: 'set_cashbox_pos',
+                        args: [this.env.pos.pos_session.id, this.state.openingCash, this.state.notes,this.state.openingCashCurrency],
+                });
+                super.confirm();
+            }
             openDetailsPopup() {
+                this.state.openingCash = 0;
                 this.state.openingCashCurrency = 0;
+                this.state.notes = "";
+                this.state.displayMoneyDetailsPopup = true;
             }
             updateCashOpening({ total,totalcurrency, moneyDetailsNotes }) {
                 this.state.openingCash = total;

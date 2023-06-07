@@ -32,7 +32,7 @@
                                     <tr>
                                         <td t-esc="defaultCashDetails.name" />
                                         <td t-esc="env.pos.format_currency(defaultCashDetails.amount)" />
-                                        <td t-esc="format_currency_amount(defaultCashDetails.amount)" />
+                                        <td t-esc="format_currency_amount(defaultCashDetailsCurrency.amount)" />
                                         <td
                                             t-on-input="() => this.handleInputChange(defaultCashDetails.id)">
                                             <div class="normal">
@@ -66,7 +66,7 @@
                                     <tr>
                                         <td>Opening</td>
                                         <td t-esc="env.pos.format_currency(defaultCashDetails.opening)" />
-                                        <td t-esc="format_currency_amount(defaultCashDetailsCurrency.opening)" />
+                                        <td t-esc="format_currency_amount(defaultCashDetailsCurrency.openingcurrency)" />
                                     </tr>
                                     <tr t-foreach="defaultCashDetails.moves" t-as="move" t-key="move_index">
                                         <td>
