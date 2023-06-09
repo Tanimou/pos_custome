@@ -21,7 +21,7 @@ class PosConfigInherit(models.Model):
     #     string='Complementary Currencies'
     # )
 
-    taux = fields.Float('taux de change', digits=(16,16))
+    taux = fields.Float('taux de change', digits=(16,2))
 
     # complementary_currency_ids=[]
     

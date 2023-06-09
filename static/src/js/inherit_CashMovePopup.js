@@ -3,7 +3,6 @@ odoo.define('pos_custome.InheritCashMovePopup', function (require) {
 
     const CashMovePopup = require('point_of_sale.CashMovePopup');
     const Registries = require('point_of_sale.Registries');
-    const inherit_models= require('pos_custome.Models')
     const { useState } = owl;
 
     const InheritCashMovePopup = (CashMovePopup) =>
