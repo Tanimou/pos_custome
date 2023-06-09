@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
+<!-- <script type="text/javascript" src="/pos_custome/static/src/js/inherit_CashMovePopup.js"></script> -->
     <t t-name="InheritCashMovePopup" t-inherit="point_of_sale.CashMovePopup" t-inherit-mode="extension" owl="1">
         <xpath expr="//*[hasclass('cash-move-popup')]" position="replace">
 
@@ -31,10 +32,14 @@
                                 <t t-if="env.pos.currency.symbol.length > 1">
 
                                     <t t-if="state.inputCurrency==env.pos.currency.name">
+                                    <t t-set="state.isNewCurrencySelected" t-value="false"/>
+
                                         <span class="left-currency" t-esc="env.pos.currency.symbol" />
                                     </t>
 
                                     <t t-else="">
+                                    <t t-set="state.isNewCurrencySelected" t-value="true"/>
+
                                         <span class="left-currency"
                                             t-esc="env.pos.config.complementary_currency_symbol" />
                                     </t>
@@ -44,11 +49,15 @@
                                 <t t-else="">
 
                                     <t t-if="state.inputCurrency==env.pos.currency.name">
+                                    <t t-set="state.isNewCurrencySelected" t-value="false"/>
+
                                         <span class="currency" t-esc="env.pos.currency.symbol" />
 
                                     </t>
 
                                     <t t-else="">
+                                    <t t-set="state.isNewCurrencySelected" t-value="true"/>
+
                                         <span class="currency" t-esc="env.pos.config.complementary_currency_symbol" />
                                     </t>
                                     <!-- <span class="currency" t-esc="env.pos.currency.symbol" /> -->
