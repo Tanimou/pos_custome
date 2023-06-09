@@ -1,4 +1,5 @@
 from odoo import models,fields,api
+from odoo.http import request
 
 
 class PosConfigInherit(models.Model):
@@ -7,7 +8,7 @@ class PosConfigInherit(models.Model):
 
     complementary_currency = fields.Many2one('res.currency','Currency')
     complementary_currency_symbol=fields.Char(related="complementary_currency.symbol",string="Symbol")
-
+    is_complementary_currency_active = fields.Boolean('Active', default=True)
     complementary_currency_position = fields.Selection(related='complementary_currency.position', readonly=True)
 
     # create a complementary currency field that is a many2many field of res.currency
@@ -68,3 +69,20 @@ class PosConfigInherit(models.Model):
 #         required=True,
 #         ondelete='cascade'
 #     )
+    @api.model
+    def update_complementary_currency_active(self, is_active):
+        print("is active",is_active)
+        "get the config_id from a given url. For example: http://localhost:8069/pos/ui?config_id=1#cids=1"
+        pos_config = request.env['pos.config'].sudo().browse(1)
+
+        pos_config.write({'is_complementary_currency_active': is_active})
+        # print("Is_complementary_currency_active",pos_config.is_complementary_currency_active)
+        return True
+    
+    
+    #inherit the account.bank.statement.line model
+    class AccountBankStatementLine(models.Model):
+        _inherit = 'account.bank.statement.line'
+        _description = 'Account Bank Statement Line'
+    
+        is_new_currency_selected= fields.Boolean('New Currency Selected', related='pos_session_id.config_id.is_complementary_currency_active')

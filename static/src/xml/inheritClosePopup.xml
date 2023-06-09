@@ -75,8 +75,18 @@
                                                 <t t-esc="move.name" />
                                             </div>
                                         </td>
+                                        <t t-if="move.is_new_currency_selected">
+                                            <td t-esc="env.pos.format_currency(Math.abs(0))" />
+                                            <td t-esc="env.pos.format_currency(Math.abs(move.amount))" />
+                                            <t t-set="move.is_new_currency_selected" t-value="false"/>
+                                        </t>
+                                    
+                                        <t t-else="">
                                         <td t-esc="env.pos.format_currency(Math.abs(move.amount))" />
-                                        <td t-esc="env.pos.format_currency(Math.abs(move.amount))" />
+                                        <td t-esc="env.pos.format_currency(Math.abs(0))" />
+
+                                        </t>
+                                    
                                     </tr>
                                     <tr t-if="defaultCashDetails.payment_amount">
                                         <td>

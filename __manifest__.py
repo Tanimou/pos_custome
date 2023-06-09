@@ -34,5 +34,6 @@
                     # 'pos_custome/static/src/js/inherit_closePopup.js',
                     
                 ],
+                'web':['pos_custome/static/src/js/inherit_closePopup.js']
             },
 }
