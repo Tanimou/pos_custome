@@ -1,0 +1,562 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+
+    <template id="report_synthese_payslip_view">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+
+                <div class="page">
+                    <div style="width:100%;">
+                        <center>
+                            <h2 style="font-weight: bold; font-size:32px;">
+                                Livre de Paie Mensuel
+                            </h2>
+                            <span>Période: du
+                                <span t-esc="start_date" t-options='{"widget": "date"}'/>
+                                au
+                                <span t-esc="end_date" t-options='{"widget": "date"}'/>
+                            </span>
+                        </center>
+                    </div>
+
+                    <t t-foreach="docs" t-as="doc">
+                        <table class="table">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col" style="line-height: 5px; height:5px;">Elément</th>
+                                    <th scope="col" style="line-height: 5px; height:5px;" t-foreach="doc" t-as="o"
+                                        class="text-end">
+                                        <span t-field="o.employee_id.name"/>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody style="color:black;">
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Salaire de base</td>
+                                    <td t-foreach="doc" t-as="o" class="text-end">
+                                        <span t-field="o.contract_id.salary"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Sur salaire</td>
+                                    <td t-foreach="doc" t-as="o" class="text-end">
+                                        <span t-field="o.contract_id.su_salary"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Total salaire journalier</td>
+                                    <td t-foreach="doc" t-as="o" class="text-end">
+                                        <span t-field="o.contract_id.daily_pay"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Prime de responsabilité</td>
+                                    <td t-foreach="doc" t-as="o" class="text-end">
+                                        <span t-field="o.responsibility_bonus"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Prime d'ancienneté</td>
+                                    <td t-foreach="doc" t-as="o" class="text-end">
+                                        <span t-field="o.contract_id.seniority_bonus"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Prime de transport imp</td>
+                                    <td t-foreach="doc" t-as="o" class="text-end">
+                                        <span t-field="o.contract_id.taxable_transportation_allowance"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Prime de salissure</td>
+                                    <td t-foreach="doc" t-as="o" class="text-end">
+                                        <span t-field="o.prime_salissure_imposable"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Gratification</td>
+                                    <td t-foreach="doc" t-as="o" class="text-end">
+                                        <span t-field="o.contract_id.gratification"/>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Avantage en nature</td>
+                                    <td t-foreach="doc" t-as="o" class="text-end">
+                                        <span t-field="o.advantage_in_kind"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Prime exceptionnelle</td>
+                                    <td t-foreach="doc" t-as="o" class="text-end">
+                                        <span t-field="o.exceptional_bonus"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Prime de rendement</td>
+                                    <td t-foreach="doc" t-as="o" class="text-end">
+                                        <span t-field="o.performance_bonus"/>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Heure suppl à 15%</td>
+                                    <td t-foreach="doc" t-as="o" class="text-end">
+                                        <span t-field="o.mount_15"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Heure suppl à 50%</td>
+                                    <td t-foreach="doc" t-as="o" class="text-end">
+                                        <span t-field="o.mount_50"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Heure suppl à 75%</td>
+                                    <td t-foreach="doc" t-as="o" class="text-end">
+                                        <span t-field="o.mount_75"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Heure suppl à 100%</td>
+                                    <td t-foreach="doc" t-as="o" class="text-end">
+                                        <span t-field="o.mount_100"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Prime de panier</td>
+                                    <td t-foreach="doc" t-as="o" class="text-end">
+                                        <span t-field="o.basket_bonus"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Indemnité de licencement</td>
+                                    <td t-foreach="doc" t-as="o" class="text-end">
+                                        <span t-field="o.contract_id.Licensing_compensation"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Congé</td>
+                                    <td t-foreach="doc" t-as="o" class="text-end">
+                                        <span t-field="o.contract_id.paid_vacation"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Indemnité départ à la retraite</td>
+                                    <td t-foreach="doc" t-as="o" class="text-end">
+                                        <span t-field="o.contract_id.indemnite_depart_retraite"/>
+                                    </td>
+                                </tr>
+                                <tr style="background-color:#2E8BC0;">
+                                    <td style="width:300px;font-weight:900">Total brut</td>
+                                    <td t-foreach="doc" t-as="o" style="font-weight:900; background-color:#2E8BC0;" class="text-end">
+                                        <t t-esc="'{:,}'.format(int(o.wage)).replace(',', ' ')"/>
+                                    </td>
+                                </tr>
+
+                                <!-- cotisation -->
+                                <tr>
+                                    <td style="width:300px;font-weight:900">I.S</td>
+                                    <td t-foreach="doc" t-as="o" class="text-end">
+                                        <span t-field="o.wage_salary_tax"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Contribution nationale</td>
+                                    <td t-foreach="doc" t-as="o" class="text-end">
+                                        <span t-field="o.national_contribution"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">I.G.R</td>
+                                    <td t-foreach="doc" t-as="o" class="text-end">
+                                        <span t-field="o.general_income_tax"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">(C.N.P.S)</td>
+                                    <td t-foreach="doc" t-as="o" class="text-end">
+                                        <span t-field="o.cnps_salariale"/>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="width:300px;font-weight:900">CMU employé</td>
+                                    <td t-foreach="doc" t-as="o" class="text-end">
+                                        <span t-field="o.cmu"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Retraite générale</td>
+                                    <td t-foreach="doc" t-as="o" class="text-end">
+                                        <span t-field="o.general_retirement"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Prestation Familiales</td>
+                                    <td t-foreach="doc" t-as="o" class="text-end">
+                                        <span t-field="o.family_benefit"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Assurance Maternité</td>
+                                    <td t-foreach="doc" t-as="o" class="text-end">
+                                        <span t-field="o.maternity_insurance"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Accident de travail</td>
+                                    <td t-foreach="doc" t-as="o" class="text-end">
+                                        <span t-field="o.work_related_accident"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Part patronal I.S local</td>
+                                    <td t-foreach="doc" t-as="o" class="text-end">
+                                        <span t-field="o.wage_salary_tax"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Taxe d'apprentissage</td>
+                                    <td t-foreach="doc" t-as="o" class="text-end">
+                                        <span t-field="o.applicable_taxe"/>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Taxe F.P.C</td>
+                                    <td t-foreach="doc" t-as="o" class="text-end">
+                                        <span t-field="o.taxe_fpc"/>
+                                    </td>
+                                </tr>
+
+                                <tr style="background-color:#2E8BC0;">
+                                    <td style="width:300px;font-weight:900">Total Cotisation</td>
+                                    <td t-foreach="doc" t-as="o" style="font-weight:900; background-color:#2E8BC0;" class="text-end">
+                                        <span t-field="o.total_contribution"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Prime de transport</td>
+                                    <td t-foreach="doc" t-as="o" class="text-end">
+                                        <span t-field="o.travel_allowance"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Autre prime</td>
+                                    <td t-foreach="doc" t-as="o" class="text-end">
+                                        <span t-field="o.other_bonus"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Retenu sur absence</td>
+                                    <td t-foreach="doc" t-as="o" class="text-end">
+                                        <span t-field="o.retenu_absence"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Acompte sur salaire</td>
+                                    <td t-foreach="doc" t-as="o" class="text-end">
+                                        <span t-field="o.acompte"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Avance sur salaire</td>
+                                    <td t-foreach="doc" t-as="o" class="text-end">
+                                        <span t-field="o.salary_advance"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Rappel salaire mensuel</td>
+                                    <td t-foreach="doc" t-as="o" class="text-end">
+                                        <span t-field="o.contract_id.monthly_salary_recall"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Indemnite licencement non imposable</td>
+                                    <td t-foreach="doc" t-as="o" class="text-end">
+                                        <span t-field="o.contract_id.indemnite_licencement"/>
+                                    </td>
+                                </tr>
+                                <tr style="background-color:#2E8BC0;">
+                                    <td style="width:300px;font-weight:900">Salaire net</td>
+                                    <td t-foreach="doc" t-as="o" style="font-weight:900; background-color:#2E8BC0;" class="text-end">
+                                        <span t-field="o.net_pay"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </t>
+
+                    <table class="table">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col" style="line-height: 5px; height:5px;">Elément</th>
+                                    <th scope="col" style="line-height: 5px; height:5px;">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody style="color:black;">
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Salaire de base</td>
+                                    <td style="width:400px">
+                                        <span t-esc="'{:,}'.format(int(datas['salaire_base'])).replace(',', ' ')"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Sur salaire</td>
+                                    <td style="width:400px">
+                                        <span t-esc="'{:,}'.format(int(datas['sur_salaire'])).replace(',', ' ')"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Total salaire journalier</td>
+                                    <td style="width:400px">
+                                        <span t-esc="'{:,}'.format(int(datas['total_journalier'])).replace(',', ' ')"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Prime de responsabilité</td>
+                                    <td style="width:400px">
+                                        <span t-esc="'{:,}'.format(int(datas['responsability_bonus'])).replace(',', ' ')"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Prime d'ancienneté</td>
+                                    <td style="width:400px">
+                                        <span t-esc="'{:,}'.format(int(datas['pa'])).replace(',', ' ')"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Prime de transport imp</td>
+                                    <td style="width:400px">
+                                        <span t-esc="'{:,}'.format(int(datas['taxable_transportation_allowance'])).replace(',', ' ')"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Prime de salissure</td>
+                                    <td style="width:400px">
+                                        <span t-esc="'{:,}'.format(int(datas['prime_salissure_imposable'])).replace(',', ' ')"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Gratification</td>
+                                    <td style="width:400px">
+                                        <span t-esc="'{:,}'.format(int(datas['gratification'])).replace(',', ' ')"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Avantage en nature</td>
+                                    <td>
+                                        <span t-esc="'{:,}'.format(int(datas['advantage_in_kind'])).replace(',', ' ')"/>
+                                        <!--                            <span t-field="o.contract_id.advantage_in_kind"/>-->
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Prime exceptionnelle</td>
+                                    <td>
+                                        <span t-esc="'{:,}'.format(int(datas['exceptionnelle'])).replace(',', ' ')"/>
+                                        <!--                            <span t-field="o.contract_id.exceptional_bonus"/>-->
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Prime de rendement</td>
+                                    <td>
+                                        <span t-esc="'{:,}'.format(int(datas['rendement'])).replace(',', ' ')"/>
+                                        <!--                            <span t-field="o.contract_id.performance_bonus"/>-->
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Heure suppl à 15%</td>
+                                    <td style="width:400px">
+                                        <span t-esc="'{:,}'.format(int(datas['mount_15'])).replace(',', ' ')"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Heure suppl à 50%</td>
+                                    <td style="width:400px">
+                                        <span t-esc="'{:,}'.format(int(datas['mount_50'])).replace(',', ' ')"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Heure suppl à 75%</td>
+                                    <td style="width:400px">
+                                        <span t-esc="'{:,}'.format(int(datas['mount_75'])).replace(',', ' ')"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Heure suppl à 100%</td>
+                                    <td style="width:400px">
+                                        <span t-esc="'{:,}'.format(int(datas['mount_100'])).replace(',', ' ')"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Prime de panier</td>
+                                    <td style="width:400px">
+                                        <span t-esc="'{:,}'.format(int(datas['basket_bonus'])).replace(',', ' ')"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Indemnité de licencement</td>
+                                    <td style="width:400px">
+                                        <span t-esc="'{:,}'.format(int(datas['Licensing_compensation'])).replace(',', ' ')"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Congé</td>
+                                    <td style="width:400px">
+                                        <span t-esc="'{:,}'.format(int(datas['paid_vacation'])).replace(',', ' ')"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Indemnité départ à la retraite</td>
+                                    <td style="width:400px">
+                                        <span t-esc="'{:,}'.format(int(datas['indemnite_depart_retraite'])).replace(',', ' ')"/>
+                                    </td>
+                                </tr>
+                                <tr style="background-color:#2E8BC0;">
+                                    <td style="width:300px;font-weight:900">Total brut</td>
+                                    <td style="width:400px;font-weight:900; background-color:#2E8BC0;">
+                                        <span t-esc="'{:,}'.format(int(datas['brut'])).replace(',', ' ')"/>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">I.S</td>
+                                    <td style="width:400px">
+                                        <span t-esc="'{:,}'.format(int(datas['ist'])).replace(',', ' ')"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Contribution nationale</td>
+                                    <td style="width:400px">
+                                        <span t-esc="'{:,}'.format(int(datas['cn'])).replace(',', ' ')"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">I.G.R</td>
+                                    <td style="width:400px">
+                                        <span t-esc="'{:,}'.format(int(datas['igr'])).replace(',', ' ')"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">(C.N.P.S)</td>
+                                    <td style="width:400px">
+                                        <span t-esc="'{:,}'.format(int(datas['cnps'])).replace(',', ' ')"/>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="width:300px;font-weight:900">CMU employé</td>
+                                    <td style="width:400px">
+                                        <span t-esc="'{:,}'.format(int(datas['cmu'])).replace(',', ' ')"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Retraite générale</td>
+                                    <td style="width:400px">
+                                        <span t-esc="'{:,}'.format(int(datas['retraite_generale'])).replace(',', ' ')"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Prestation Familiales</td>
+                                    <td style="width:400px">
+                                        <span t-esc="'{:,}'.format(int(datas['prestation_familiale'])).replace(',', ' ')"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Assurance Maternité</td>
+                                    <td style="width:400px">
+                                        <span t-esc="'{:,}'.format(int(datas['assurance_maternite'])).replace(',', ' ')"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Accident de travail</td>
+                                    <td style="width:400px">
+                                        <span t-esc="'{:,}'.format(int(datas['work_related_accident'])).replace(',', ' ')"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Part patronal I.S local</td>
+                                    <td style="width:400px">
+                                        <span t-esc="'{:,}'.format(int(datas['ist'])).replace(',', ' ')"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Teste d'apprentissage</td>
+                                    <td style="width:400px">
+                                        <span t-esc="'{:,}'.format(int(datas['taxe_app'])).replace(',', ' ')"/>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Taxe F.P.C</td>
+                                    <td style="width:400px">
+                                        <span t-esc="'{:,}'.format(int(datas['taxe_fpc'])).replace(',', ' ')"/>
+                                    </td>
+                                </tr>
+
+                                <tr style="background-color:#2E8BC0;">
+                                    <td style="width:300px;font-weight:900">Total Cotisation</td>
+                                    <td style="width:400px;font-weight:900; background-color:#2E8BC0;">
+                                        <span t-esc="'{:,}'.format(int(datas['total_cotisation'])).replace(',', ' ')"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Prime de transport</td>
+                                    <td style="width:400px">
+                                        <span t-esc="'{:,}'.format(int(datas['transport'])).replace(',', ' ')"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Autre prime</td>
+                                    <td style="width:400px">
+                                        <span t-esc="'{:,}'.format(int(datas['other_bonus'])).replace(',', ' ')"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Retenu sur absence</td>
+                                    <td style="width:400px">
+                                        <span t-esc="'{:,}'.format(int(datas['retenu_absence'])).replace(',', ' ')"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Acompte sur salaire</td>
+                                    <td style="width:400px">
+                                        <span t-esc="'{:,}'.format(int(datas['Acompte'])).replace(',', ' ')"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Avance sur salaire</td>
+                                    <td style="width:400px">
+                                        <span t-esc="'{:,}'.format(int(datas['salary_advance'])).replace(',', ' ')"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Rappel salaire mensuel</td>
+                                    <td style="width:400px">
+                                        <span t-esc="'{:,}'.format(int(datas['rappel_salaire'])).replace(',', ' ')"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:300px;font-weight:900">Indemnite de licencement non imposable</td>
+                                    <td style="width:400px">
+                                        <span t-esc="'{:,}'.format(int(datas['indemnite_licencement_non_imp'])).replace(',', ' ')"/>
+                                    </td>
+                                </tr>
+                                <tr style="background-color:#2E8BC0;">
+                                    <td style="width:300px;font-weight:900;font-weight:900">Salaire net</td>
+                                    <td style="width:400px;font-weight:900; background-color:#2E8BC0;">
+                                        <span t-esc="'{:,}'.format(int(datas['net_pay'])).replace(',', ' ')"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                </div>
+
+            </t>
+        </t>
+    </template>
+
+</odoo>

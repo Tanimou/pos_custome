@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hr_contract_view_form_inherit_hr_contract" model="ir.ui.view">
+        <field name="name">hr.contract.view.form.inherit</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='job_id']" position="after">
+                <field name="struct_id" required="1"/>
+            </xpath>
+            <xpath expr="//field[@name='job_id']" position="before">
+                <field name="currency_id" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='resource_calendar_id']" position="after">
+                <field name="schedule_pay"/>
+            </xpath>
+            <xpath expr="//field[@name='date_end']" position="after">
+                <field name="contrat_duration"/>
+            </xpath>
+            <xpath expr="//field[@name='department_id']" position="before">
+                <field name="method_of_payment"/>
+            </xpath>
+
+        </field>
+    </record>
+
+
+    <record id="hr_contract_form_additional_allowance" model="ir.ui.view">
+        <field name="name">hr.contract.view.additional.allowance</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet//div[@name='button_box']" position="before">
+                <field name="is_expire" invisible="1"/>
+                <div class="alert alert-danger text-center o_form_header" role="alert" attrs="{'invisible':[('is_expire','!=',True)]}">
+                    <div>
+                        <strong>Ce contract expire dans
+                            <field name="ecart" readonly="1"/>
+                            jours
+                        </strong>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="//group[@name='salary']//label[@for='wage']" position="before">
+                <field name="salary" required="1"/>
+                <field name="su_salary" required="1"/>
+                <label for="work_day_month"/>
+                <div class="o_row" name="work_day_month">
+                    <field name="work_day_month" string="Nbr jr à travailler" class="oe_inline"/>
+                    <span>/ mois</span>
+                </div>
+            </xpath>
+            <xpath expr="//group[@name='salary']//div[@name='wage']" position="attributes">
+                <attribute name="invisible">0</attribute>
+            </xpath>
+            <xpath expr="//group[@name='salary']//field[@name='wage']" position="attributes">
+                <attribute name="required">False</attribute>
+                <attribute name="string">Salaire brut</attribute>
+            </xpath>
+            <xpath expr="//group[@name='salary']" position="attributes">
+                <attribute name="attrs">{'invisible':[('schedule_pay','=','daily')]}</attribute>
+            </xpath>
+            <xpath expr="//group[@name='salary']" position="after">
+                <group attrs="{'invisible':[('schedule_pay','!=','daily')]}">
+                    <field name="daily_pay"/>
+                    <label for="work_day"/>
+                    <div class="o_row" name="work_day">
+                        <field name="work_day" class="oe_inline"/>
+                        <span>/ mois</span>
+                    </div>
+                </group>
+            </xpath>
+            <xpath expr="//notebook//page[@name='information']" position="after">
+                <page name="prime" string="Primes fixes">
+                    <group string="Primes imposable">
+                        <group>
+                            <field name="paid_vacation"/>
+                            <field name="indemnite_depart_retraite"/>
+                            <field name="Licensing_compensation"/>
+                            <field name="prime_logement"/>
+                            <field name="prime_carburant"/>
+                            <field name="assurance"/>
+                            <field name="prime_resp"/>
+                        </group>
+                        <group>
+                            <field name="gratification"/>
+                            <field name="Anciennete_horaire"/>
+                            <field name="taxable_transportation_allowance" string="Prime de transport" readonly="1" force_save="1"/>
+                            <field name="is_seniority" invisible="1"/>
+                            <field name="seniority_bonus" attrs="{'invisible':[('is_seniority','!=',True)]}"/>
+                        </group>
+                    </group>
+                    <group string="Primes non imposable">
+                        <group>
+                            <field name="monthly_salary_recall"/>
+                            <field name="indemnite_licencement"/>
+                            <field name="prime_exp"/>
+                            <field name="prime_rend"/>
+                            <field name="prime_pan"/>
+                            <field name="avtg_nat"/>
+                            <field name="other_prime"/>
+                        </group>
+                        <group>
+                            <field name="travel_allowance" required="1"/>
+                        </group>
+                    </group>
+                </page>
+                <!--                <li style="color:red;">FIN DE CONTRACT</li>-->
+                <!--                <li style="background-color:#c31818; text-align:center;">01/06/2023</li>-->
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>

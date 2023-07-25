@@ -1,3 +1,1 @@
-from . import pos_config_inherit
-from . import res_config_inherit
-from . import pos_sessionInherit
+from . import hr_contract,hr_payslib,hr_salary_rule,hr_employee,hr_kids

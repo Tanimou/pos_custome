@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<record id="view_hr_payslib_form_inherit_hr_payslib" model="ir.ui.view">
+    <field name="name">hr.payslip.view.form.inherit</field>
+    <field name="model">hr.payslip</field>
+    <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//notebook/page[@name='worked_days_input']/field[@name='worked_days_line_ids']" position="after">
+            <group string="Prime imposable">
+                <group>
+                    <label for="HS_15"/>
+                    <div class="o_row" name="HS_15">
+                        <field name="HS_15" class="oe_inline" widget="float_time" attrs="{'readonly': [('state', 'in', ['done', 'cancel'])]}"/>
+                        <field name="mount_15"/>
+                    </div>
+                    <label for="HS_50"/>
+                    <div class="o_row" name="HS_50">
+                        <field name="HS_50" class="oe_inline" widget="float_time" attrs="{'readonly': [('state', 'in', ['done', 'cancel'])]}"/>
+                        <field name="mount_50"/>
+                    </div>
+                    <label for="HS_75"/>
+                    <div class="o_row" name="HS_75">
+                        <field name="HS_75" class="oe_inline" widget="float_time" attrs="{'readonly': [('state', 'in', ['done', 'cancel'])]}"/>
+                        <field name="mount_75"/>
+                    </div>
+                    <label for="HS_100"/>
+                    <div class="o_row" name="HS_100">
+                        <field name="HS_100" class="oe_inline" widget="float_time" attrs="{'readonly': [('state', 'in', ['done', 'cancel'])]}"/>
+                        <field name="mount_100"/>
+                    </div>
+                </group>
+                <group>
+                    <field name="responsibility_bonus" attrs="{'readonly': [('state', 'in', ['done', 'cancel'])]}"/>
+                    <field name="work_dress_bonus" attrs="{'readonly': [('state', 'in', ['done', 'cancel'])]}"/>
+                    <field name="technical_bonus" attrs="{'readonly': [('state', 'in', ['done', 'cancel'])]}"/>
+                    <field name="prime_salissure_imposable" attrs="{'readonly': [('state', 'in', ['done', 'cancel'])]}"/>
+                </group>
+            </group>
+            <group string="Prime non imposable">
+                <group>
+                    <field name="travel_allowance" attrs="{'readonly': [('state', 'in', ['done', 'cancel'])]}"/>
+                    <field name="exceptional_bonus" attrs="{'readonly': [('state', 'in', ['done', 'cancel'])]}"/>
+                    <field name="performance_bonus" attrs="{'readonly': [('state', 'in', ['done', 'cancel'])]}"/>
+                    <field name="basket_bonus" attrs="{'readonly': [('state', 'in', ['done', 'cancel'])]}"/>
+                </group>
+                <group>
+                    <field name="advantage_in_kind" attrs="{'readonly': [('state', 'in', ['done', 'cancel'])]}"/>
+                    <field name="retenu_absence" attrs="{'readonly': [('state', 'in', ['done', 'cancel'])]}"/>
+                    <field name="other_bonus" attrs="{'readonly': [('state', 'in', ['done', 'cancel'])]}"/>
+                </group>
+            </group>
+        </xpath>
+    </field>
+</record>
+    
+
+</odoo>

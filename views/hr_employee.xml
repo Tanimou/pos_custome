@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="payroll_hr_employee_view_form" model="ir.ui.view">
+        <field name="name">model.name.view.form.inherit</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <field name="identification_id" position="after">
+                <field name="cnps"/>
+            </field>
+            <field name="children" position="after">
+                <field name="kids"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

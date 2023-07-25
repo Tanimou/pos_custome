@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="progistack_footer">
+        <div class="footer" style="text-align: right; margin-bottom: 10px">
+            <span style="font-size:14px; color:grey;">
+                Développé par
+                <img style="margin-bottom:3px;" src="hr_payroll_community/static/img/menu-logo.png"
+                     width="91.6"
+                     height="15"
+                     alt="logo progistack"/>
+            </span>
+        </div>
+    </template>
+</odoo>

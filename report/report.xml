@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Format de page d'impression -->
+    <record id="report_payslip_paperformat" model="report.paperformat">
+        <field name="name">Demande de réparation A4</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">5</field>
+        <field name="margin_bottom">5</field>
+        <field name="margin_left">7</field>
+        <field name="margin_right">10</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">10</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <!-- Format de page d'impression PDF cotisation -->
+    <record id="paperformat_progistack_landscape" model="report.paperformat">
+        <field name="name">US Letter</field>
+        <field name="default" eval="True"/>
+        <field name="format">Letter</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">10</field>
+        <field name="margin_bottom">7</field>
+        <field name="margin_left">7</field>
+        <field name="margin_right">7</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">35</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <!-- Format de page d'impression PDF synthèse de paie -->
+    <record id="paperformat_progistack" model="report.paperformat">
+        <field name="name">US Letter</field>
+        <field name="default" eval="True"/>
+        <field name="format">Letter</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">7</field>
+        <field name="margin_bottom">7</field>
+        <field name="margin_left">7</field>
+        <field name="margin_right">7</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">35</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="paperformat_progistack_2" model="report.paperformat">
+        <field name="name">US Letter</field>
+        <field name="default" eval="True"/>
+        <field name="format">Letter</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">7</field>
+        <field name="margin_bottom">7</field>
+        <field name="margin_left">7</field>
+        <field name="margin_right">7</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">35</field>
+        <field name="dpi">90</field>
+    </record>
+
+<!--    <record id="action_contribution_register" model="ir.actions.report">-->
+<!--        <field name="name">Contribution Register PDF</field>-->
+<!--        <field name="model">hr.contribution.register</field>-->
+<!--        <field name="report_type">qweb-pdf</field>-->
+<!--        &lt;!&ndash;            <field name="binding_model_id" ref="model_hr_contribution_register"/>&ndash;&gt;-->
+<!--        <field name="report_name">hr_payroll_community.report_contributionregister</field>-->
+<!--        <field name="report_file">hr_payroll_community.report_contributionregister</field>-->
+<!--    </record>-->
+
+    <record id="action_report_payslip" model="ir.actions.report">
+        <field name="name">Payslip</field>
+        <field name="model">hr.payslip</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">migration_paie.fiche_pay_report</field>
+        <field name="report_file">migration_paie.fiche_pay_report</field>
+        <field name="binding_model_id" ref="model_hr_payslip"/>
+        <field name="print_report_name">('Payslip - %s' % (object.employee_id.name))</field>
+        <field name="paperformat_id" ref="migration_paie.report_payslip_paperformat"/>
+        <field name="binding_type">report</field>
+        <field name="attachment"></field>
+        <field name="attachment_use" eval="False"/>
+    </record>
+
+<!--    <record id="payslip_details_report" model="ir.actions.report">-->
+<!--        <field name="name">Payslip Details</field>-->
+<!--        <field name="model">hr.payslip</field>-->
+<!--        <field name="report_type">qweb-pdf</field>-->
+<!--        <field name="binding_model_id" ref="model_hr_payslip"/>-->
+<!--        <field name="report_name">hr_payroll_community.report_payslipdetails</field>-->
+<!--        <field name="report_file">hr_payroll_community.report_payslipdetails</field>-->
+<!--        <field name="print_report_name">('Payslip Details - %s' % (object.employee_id.name))</field>-->
+<!--    </record>-->
+
+    <!-- Action report cotisation -->
+<!--    <record id="action_report_cotisation" model="ir.actions.report">-->
+<!--        <field name="name">Fiche de cotisation</field>-->
+<!--        <field name="model">hr.payslip</field>-->
+<!--        <field name="report_type">qweb-pdf</field>-->
+<!--        <field name="report_name">hr_payroll_community.fiche_report_cotisation</field>-->
+<!--        <field name="report_file">hr_payroll_community.fiche_report_cotisation</field>-->
+<!--        <field name="binding_model_id" eval="False"/>-->
+<!--        <field name="print_report_name">Fiche de cotisation</field>-->
+<!--        <field name="binding_type">report</field>-->
+<!--        <field name="paperformat_id" ref="hr_payroll_community.paperformat_progistack_landscape"/>-->
+<!--    </record>-->
+
+    <!-- Action report synthèse de paie -->
+<!--    <record id="report_payslip_paie_synthese" model="ir.actions.report">-->
+<!--        <field name="name">Bilan paie</field>-->
+<!--        <field name="model">paie.synthese</field>-->
+<!--        <field name="report_type">qweb-pdf</field>-->
+<!--        <field name="report_name">hr_payroll_community.report_synthese_payslip_view</field>-->
+<!--        <field name="report_file">hr_payroll_community.report_synthese_payslip_view</field>-->
+<!--&lt;!&ndash;        <field name="paperformat_id" ref="paperformat_progistack"/>&ndash;&gt;-->
+<!--        <field name="binding_model_id" eval="False"/>-->
+<!--        <field name="binding_type">report</field>-->
+<!--    </record>-->
+</odoo>

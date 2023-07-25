@@ -1,0 +1,654 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="fiche_pay_report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.basic_layout">
+            <div class="page">
+                <style>
+                    .tableborder1{
+                    border-color:white;
+                    text-align:center;
+                    width: 100%;
+                    font-size: 11px;
+                    text-color: black;
+                    }
+                    .tableborder2{
+                    border: 1px solid black;
+                    width: 100%;
+                    font-size: 11px;
+                    border-collapse: collapse;
+                    }
+                    .centert{
+                    text-align:center;
+
+                    }
+                    .rightt{
+                    text-align:center;
+                    }
+
+                    td {
+                    border-right:1px solid black;
+                    border-left:1px solid black;
+                    border-top:none;
+                    border-bottom:none;
+                    }
+                    .box{
+                    margin: 0 auto;
+                    width: 600px;
+                    }
+                    th{
+                    border-top:none;
+                    border-bottom:none;
+                    border-left:none;
+                    border-right:none;
+                    }
+                    tr{
+                    border-top:none;
+                    border-bottom:none;
+                    border-left:none;
+                    border-right:none;
+                    }
+
+                </style>
+                <table class="tableborder1" style="padding-top: 10px">
+                    <thead>
+                        <tr>
+                            <th>
+                                <img style="width: 350px;height:53.6px;" t-if="o.company_id.logo"
+                                     t-att-src="image_data_uri(o.company_id.logo)"/>
+                            </th>
+                            <th style="width: 15%">
+                            </th>
+                            <th style="text-align:center; font-size: 16px;">BULLETIN DE SALAIRE</th>
+                        </tr>
+                        <tr>
+                            <th>
+                            </th>
+                            <th style="width: 15%">
+                            </th>
+                            <th style="text-align:center;">
+                                <span t-esc="o._get_month()"/>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                            </th>
+                            <th style="width: 15%">
+                            </th>
+                            <th style="text-align:center;">Période du
+                                <span t-field="o.date_from" style="margin-right:5px;margin-left:5px;"/>
+                                au
+                                <span t-field="o.date_to" style="margin-left:5px;"/>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="width: 15%">
+                            </th>
+                            <th style="text-align:center;">
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="text-align:left;padding-left:15px">Parts IGR:
+                                <span style="font-weight: 900;padding-left: 5px">
+                                    <span t-field="o.number_of_shares"/>
+                                </span>
+                            </th>
+                            <th></th>
+                            <th style="text-align:center;">
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="text-align:left;padding-left:15px">Situation matrimoniale:
+                                <span style="font-weight: 900;padding-left: 5px">
+                                    <span t-field="o.employee_id.marital"/>
+                                </span>
+                            </th>
+                            <th>
+                            </th>
+                            <th style="text-align:center;">
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="text-align:left;padding-left:15px">Nombre enfant:
+                                <span style="font-weight: 900;padding-left: 5px">
+                                    <span t-field="o.employee_id.children"/>
+                                </span>
+                            </th>
+                            <th>
+                            </th>
+                            <th style="text-align:center;">
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="text-align:left;padding-left:15px">Numéro CNPS:
+                                <span style="font-weight: 900;padding-left: 5px">
+                                    <span t-field="o.employee_id.cnps"/>
+                                </span>
+                            </th>
+                            <th>
+                            </th>
+                            <th style="text-align:center;">
+                            </th>
+                        </tr>
+
+                        <tr>
+                            <th style="text-align:left;padding-left:15px">Nationalité:
+                                <span style="font-weight: 900;padding-left: 5px"
+                                      t-field="o.employee_id.country_id.name"/>
+                            </th>
+                            <th></th>
+                            <th rowspan="5"
+                                style="text-align:center;padding-left:15px;background-color:#BCDDF5;border-radius:10px; width:200px;">
+                                <center>
+                                    <span t-field="o.employee_id.name"/>
+                                    <br/>
+                                    <span t-field="o.employee_id.mobile_phone"/>
+                                    <br/>
+
+                                    <span t-field="o.employee_id.address_home_id.name"/>
+<!--                                    <span t-field="o.employee_id.city_id.name"/>-->
+<!--                                    <t t-if="o.employee_id.commune_id">-->
+<!--                                        ,-->
+<!--                                        <span t-field="o.employee_id.commune_id.name"/>-->
+<!--                                    </t>-->
+                                </center>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="text-align:left;padding-left:15px">Emploi:
+                                <span style="font-weight: 900;padding-left: 5px"
+                                      t-field="o.employee_id.job_title"/>
+                            </th>
+                            <th>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="text-align:left;padding-left:15px">Statut professionnel:
+                                <span style="font-weight: 900;padding-left: 5px">Employé</span>
+                            </th>
+                            <th>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="text-align:left;padding-left:15px">Catégorie/Sal Cat:
+                                <t t-if="o.contract_id.sub_employee_type_id">
+                                    <span style="font-weight: 900;padding-left: 5px"
+                                          t-field="o.contract_id.sub_employee_type_id.name"/>
+                                </t>
+                                <t t-else="">
+                                    <span style="font-weight: 900;padding-left: 5px"
+                                          t-field="o.contract_id.employee_type_id.name"/>
+                                </t>
+                            </th>
+                            <th>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="text-align:left;padding-left:15px">Département:
+                                <span style="font-weight: 900;padding-left: 5px"
+                                      t-field="o.employee_id.department_id.name"/>
+                            </th>
+                            <th>
+                            </th>
+                        </tr>
+                        <tr>
+<!--                            <th style="text-align:left;padding-left:15px">congé:-->
+<!--                                <span style="font-weight: 900;padding-left: 5px"-->
+<!--                                      t-field="o.employee_id.current_leave_id"/>-->
+<!--                            </th>-->
+                            <th>
+                            </th>
+                        </tr>
+
+                        <tr>
+                            <th style="text-align:left;padding-left:15px">Matricule:
+                                <span style="font-weight: 900;padding-left: 5px"
+                                      t-field="o.contract_id.employee_number"/>
+                            </th>
+                            <th>
+                            </th>
+                        </tr>
+
+                        <tr>
+                            <th style="text-align:left;padding-left:15px">Contrat:
+                                <span style="font-weight: 900;padding-left: 5px"
+                                      t-field="o.contract_id.name"/>
+                            </th>
+                            <th>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="text-align:left;padding-left:15px">Méthode de paiement:
+                                <span style="font-weight: 900;padding-left: 5px"
+                                      t-esc="{ False : False , 'espece': 'Espèces', 'cheque': 'Chèque', 'virement': 'Virement Bancaire','mobile': 'Mobile Money'}[o.contract_id
+                                              .method_of_payment]"/>
+                            </th>
+                            <th>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="text-align:left;padding-left:15px">Date d'embauche:
+                                <span style="font-weight: 900;padding-left: 5px"
+                                      t-field="o.contract_id.date_start"/>
+                            </th>
+                            <th>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="text-align:left;padding-left:15px">Ancienneté:
+                                <span style="font-weight: 900;padding-left: 5px">
+                                    <t>
+                                        <span t-esc="o.contract_id.contrat_duration"/>
+                                    </t>
+                                </span>
+                            </th>
+                            <th>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th style="text-align:left;padding-left:15px">Horaire:
+                                173.33
+                            </th>
+                            <th>
+                            </th>
+                            <th style="text-align:left;">
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+                <br/>
+<!--                <table style="width:500px;" class="table table-bordered">-->
+<!--                    <thead>-->
+<!--                    </thead>-->
+<!--                    <tbody>-->
+
+<!--                        <tr style="font-weight: 900;line-height: 5px; height:5px; border-top:1px solid black;">-->
+<!--                            <td style="border-top:1px solid black;font-size:11px; border: 1px solid black;border-top:none;line-height: 5px; height:5px;">-->
+<!--                                Jours acquis-->
+<!--                            </td>-->
+<!--                            <td style="font-weight: 900;border-top:1px solid black;font-size:11px; border: 1px solid black;border-top:none;line-height: 5px; height:5px;">-->
+<!--                                Jour pris-->
+<!--                            </td>-->
+<!--                            <td style="font-weight: 900;border-top:1px solid black;font-size:11px; border: 1px solid black;border-top:none;line-height: 5px; height:5px;">-->
+<!--                                Jours restant-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                        <tr style="line-height: 5px; height:5px;">-->
+<!--                            <td style="font-weight: 900;font-size:11px;border: 1px solid black;border-top:none;line-height: 5px; height:5px;">-->
+<!--                                <span t-esc="int(o.employee_id.allocation_display)"/>-->
+<!--                            </td>-->
+<!--                            <td style="font-weight: 900;font-size:11px;border: 1px solid black;border-top:none;line-height: 5px; height:5px;">-->
+<!--                                <span t-esc="int((o.employee_id.allocation_display)) - (int(o.employee_id.allocation_remaining_display))"/>-->
+<!--                            </td>-->
+<!--                            <td style="font-weight: 900;font-size:11px;border: 1px solid black;border-top:none;line-height: 5px; height:5px;">-->
+<!--                                <span t-esc="int(o.employee_id.allocation_remaining_display)"/>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                    </tbody>-->
+<!--                </table>-->
+                <table class="tableborder2">
+                    <thead>
+                        <tr>
+                            <th rowspan="2" class="centert"
+                                style="border: 1px solid black;background-color:#4A80C0;color: white">N
+                            </th>
+                            <th rowspan="2" class="centert"
+                                style="border: 1px solid black;background-color:#4A80C0;color: white">
+                                Désignation
+                            </th>
+                            <th rowspan="2" class="centert"
+                                style="border: 1px solid black;background-color:#4A80C0;color: white">Nombre
+                            </th>
+                            <th rowspan="2" class="centert"
+                                style="border: 1px solid black;background-color:#4A80C0;color: white">Base
+                            </th>
+                            <th colspan="3" class="centert"
+                                style="border: 1px solid black;background-color:#4A80C0;color: white">Part
+                                salariale
+                            </th>
+                            <th colspan="3" class="centert"
+                                style="border: 1px solid black;background-color:#4A80C0;color: white">Part
+                                patronale
+                            </th>
+                        </tr>
+                        <tr>
+                            <th class="centert"
+                                style="border: 1px solid black;background-color:#4A80C0;color: white">Taux
+                            </th>
+                            <th class="centert"
+                                style="border: 1px solid black;background-color:#4A80C0;color: white">Gain
+                            </th>
+                            <th class="centert"
+                                style="border: 1px solid black;background-color:#4A80C0;color: white">Retenue
+                            </th>
+                            <th class="centert"
+                                style="border: 1px solid black;background-color:#4A80C0;color: white">Taux
+                            </th>
+                            <th class="centert"
+                                style="border: 1px solid black;background-color:#4A80C0;color: white">Retenue(+)
+                            </th>
+                            <th class="centert"
+                                style="border: 1px solid black;background-color:#4A80C0;color: white">Retenue(-)
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="o.line_ids" t-as="rul">
+                            <t t-if="rul.total != 0">
+                                <!--Catégorie de salaire brute imposable-->
+                                <t t-if="rul.category_id.code == 'SBI'">
+                                    <tr class="centert">
+                                        <td><span t-esc="'{:,}'.format(int(rul.sequence)).replace(',', ' ')"/></td>
+                                        <td><span t-esc="rul.name"/></td>
+                                        <td>30</td>
+                                        <td><span t-esc="'{:,}'.format(int(rul.amount)).replace(',', ' ')"/> <span t-esc="o.company_id.currency_id.symbol"/></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </t>
+                                <!--Catégorie de prime imposable-->
+                                <t t-if="rul.category_id.code == 'PI'">
+                                    <tr class="centert">
+                                        <td><span t-esc="'{:,}'.format(int(rul.sequence)).replace(',', ' ')"/></td>
+                                        <td><span t-esc="rul.name"/></td>
+                                        <td>30</td>
+                                        <td><span t-esc="'{:,}'.format(int(rul.amount)).replace(',', ' ')"/> <span t-esc="o.company_id.currency_id.symbol"/></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </t>
+                                <!--Catégorie de salaire brut-->
+                                <t t-if="rul.category_id.code == 'BT'">
+                                    <tr class="centert" style="border: 1px solid black;font-weight: 700;color:#4A80C0">
+                                        <td><span t-esc="'{:,}'.format(int(rul.sequence)).replace(',', ' ')"/></td>
+                                        <td><span t-esc="rul.name"/></td>
+                                        <td>30</td>
+                                        <td><span t-esc="'{:,}'.format(int(rul.amount)).replace(',', ' ')"/> <span t-esc="o.company_id.currency_id.symbol"/></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </t>
+                                <!--Catégorie retenue sur absence-->
+                                <t t-if="rul.category_id.code == 'AU'">
+                                    <tr class="centert" style="">
+                                        <td><span t-esc="'{:,}'.format(int(rul.sequence)).replace(',', ' ')"/></td>
+                                        <td><span t-esc="rul.name"/></td>
+                                        <td>30</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td><span t-esc="'{:,}'.format(int(rul.total)).replace(',', ' ')"/> <span t-esc="o.company_id.currency_id.symbol"/></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </t>
+                                <!--Catégorie retenue fiscale employé-->
+                                <t t-if="rul.category_id.code == 'RF'">
+                                    <tr class="centert" style="">
+                                        <td><span t-esc="'{:,}'.format(int(rul.sequence)).replace(',', ' ')"/></td>
+                                        <td><span t-esc="rul.name"/></td>
+                                        <td>30</td>
+                                        <td><span t-esc="'{:,}'.format(int(o.contract_id.wage)).replace(',', ' ')"/> <span t-esc="o.company_id.currency_id.symbol"/></td>
+                                        <t t-if="rul.amount_select == 'percentage'">
+                                            <td><span t-esc="rul.rate"/></td>
+                                        </t>
+                                        <t t-else="">
+                                            <td></td>
+                                        </t>
+                                        <td></td>
+                                        <td><span t-esc="'{:,}'.format(int(rul.total)).replace(',', ' ')"/> <span t-esc="o.company_id.currency_id.symbol"/></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </t>
+                                <!--Catégorie retenue sociale employé-->
+                                <t t-if="rul.category_id.code == 'RSE'">
+                                    <tr class="centert" style="">
+                                        <td><span t-esc="'{:,}'.format(int(rul.sequence)).replace(',', ' ')"/></td>
+                                        <td><span t-esc="rul.name"/></td>
+                                        <td>30</td>
+                                        <td><span t-esc="'{:,}'.format(int(rul.amount)).replace(',', ' ')"/> <span t-esc="o.company_id.currency_id.symbol"/></td>
+                                        <t t-if="rul.amount_select == 'percentage'">
+                                            <td><span t-esc="rul.rate"/></td>
+                                        </t>
+                                        <t t-else="">
+                                            <td></td>
+                                        </t>
+                                        <td></td>
+                                        <td><span t-esc="'{:,}'.format(int(rul.total)).replace(',', ' ')"/> <span t-esc="o.company_id.currency_id.symbol"/></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </t>
+                                <!--Catégorie total retenue employé-->
+                                <t t-if="rul.category_id.code == 'RE'">
+                                    <tr class="centert" style="border: 1px solid black; font-weight: 700;color:#4A80C0">
+                                        <td><span t-esc="'{:,}'.format(int(rul.sequence)).replace(',', ' ')"/></td>
+                                        <td><span t-esc="rul.name"/></td>
+                                        <td>30</td>
+                                        <td></td>
+                                        <t t-if="rul.amount_select == 'percentage'">
+                                            <td><span t-esc="rul.rate"/></td>
+                                        </t>
+                                        <t t-else="">
+                                            <td></td>
+                                        </t>
+                                        <td></td>
+                                        <td><span t-esc="'{:,}'.format(int(rul.amount)).replace(',', ' ')"/> <span t-esc="o.company_id.currency_id.symbol"/></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </t>
+                                <!--Catégorie retenue sociale patronale-->
+                                <t t-if="rul.category_id.code == 'RSP'">
+                                    <tr class="centert" style="">
+                                        <td><span t-esc="'{:,}'.format(int(rul.sequence)).replace(',', ' ')"/></td>
+                                        <td><span t-esc="rul.name"/></td>
+                                        <td>30</td>
+                                        <td><span t-esc="'{:,}'.format(int(rul.amount)).replace(',', ' ')"/> <span t-esc="o.company_id.currency_id.symbol"/></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <t t-if="rul.amount_select == 'percentage'">
+                                            <td><span t-esc="rul.rate"/></td>
+                                        </t>
+                                        <t t-else="">
+                                            <td></td>
+                                        </t>
+                                        <td></td>
+                                        <td><span t-esc="'{:,}'.format(int(rul.total)).replace(',', ' ')"/> <span t-esc="o.company_id.currency_id.symbol"/></td>
+                                    </tr>
+                                </t>
+                                <!--Catégorie retenue fiscale patronale-->
+                                <t t-if="rul.category_id.code == 'RFP'">
+                                    <tr class="centert" style="">
+                                        <td><span t-esc="'{:,}'.format(int(rul.sequence)).replace(',', ' ')"/></td>
+                                        <td><span t-esc="rul.name"/></td>
+                                        <td>30</td>
+                                        <td><span t-esc="'{:,}'.format(int(rul.amount)).replace(',', ' ')"/> <span t-esc="o.company_id.currency_id.symbol"/></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <t t-if="rul.amount_select == 'percentage'">
+                                            <td><span t-esc="rul.rate"/></td>
+                                        </t>
+                                        <t t-else="">
+                                            <td></td>
+                                        </t>
+                                        <td></td>
+                                        <td><span t-esc="'{:,}'.format(int(rul.total)).replace(',', ' ')"/> <span t-esc="o.company_id.currency_id.symbol"/></td>
+                                    </tr>
+                                </t>
+                                <!--Catégorie total retenue patronale-->
+                                <t t-if="rul.category_id.code == 'RP'">
+                                    <tr class="centert" style="border: 1px solid black; font-weight: 700;color:#4A80C0">
+                                        <td><span t-esc="'{:,}'.format(int(rul.sequence)).replace(',', ' ')"/></td>
+                                        <td><span t-esc="rul.name"/></td>
+                                        <td>30</td>
+                                        <td></td>
+                                        <t t-if="rul.amount_select == 'percentage'">
+                                            <td><span t-esc="rul.rate"/></td>
+                                        </t>
+                                        <t t-else="">
+                                            <td></td>
+                                        </t>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td><span t-esc="'{:,}'.format(int(rul.amount)).replace(',', ' ')"/> <span t-esc="o.company_id.currency_id.symbol"/></td>
+                                    </tr>
+                                </t>
+                                <!--Catégorie prime non imposable-->
+                                <t t-if="rul.category_id.code == 'PNI'">
+                                    <tr class="centert" style="">
+                                        <td><span t-esc="'{:,}'.format(int(rul.sequence)).replace(',', ' ')"/></td>
+                                        <td><span t-esc="rul.name"/></td>
+                                        <td>30</td>
+                                        <td></td>
+                                        <t t-if="rul.amount_select == 'percentage'">
+                                            <td><span t-esc="rul.rate"/></td>
+                                        </t>
+                                        <t t-else="">
+                                            <td></td>
+                                        </t>
+                                        <td><span t-esc="'{:,}'.format(int(rul.amount)).replace(',', ' ')"/> <span t-esc="o.company_id.currency_id.symbol"/></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </t>
+                                <!--Catégorie total prime non imposable-->
+                                <t t-if="rul.category_id.code == 'TPNI'">
+                                    <tr class="centert" style="border: 1px solid black; font-weight: 700;color:#4A80C0">
+                                        <td><span t-esc="'{:,}'.format(int(rul.sequence)).replace(',', ' ')"/></td>
+                                        <td><span t-esc="rul.name"/></td>
+                                        <td>30</td>
+                                        <td></td>
+                                        <t t-if="rul.amount_select == 'percentage'">
+                                            <td><span t-esc="rul.rate"/></td>
+                                        </t>
+                                        <t t-else="">
+                                            <td></td>
+                                        </t>
+                                        <td><span t-esc="'{:,}'.format(int(rul.amount)).replace(',', ' ')"/> <span t-esc="o.company_id.currency_id.symbol"/></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </t>
+                            </t>
+                        </t>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td style="border:1px solid black; height:20px" class="centert">Cumuls</td>
+                            <td style="border:1px solid black;" class="centert">Salaire brut</td>
+                            <td style="border:1px solid black;" class="centert">Prime Transport</td>
+                            <td style="border:1px solid black;" class="centert">Charges salariales</td>
+                            <td style="border:1px solid black;" class="centert">Charges patronales</td>
+                            <td style="border:1px solid black;" class="centert">Heures travaillées</td>
+                            <td style="border:1px solid black;" class="centert">Heures sup.</td>
+                            <td style="border:1px solid black;" class="centert">Net de paie</td>
+                            <td colspan="2" style="border:1px solid black;" class="centert">NET
+                                A PAYER
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="" class="centert">Période</td>
+                            <td style="" class="centert">
+                                <span t-esc="'{:,}'.format(int(o.contract_id.wage)).replace(',', ' ')"/> <span t-esc="o.company_id.currency_id.symbol"/>
+                            </td>
+                            <td style="" class="centert">
+                                <span t-esc="'{:,}'.format(int(o.contract_id.travel_allowance)).replace(',', ' ')"/> <span t-esc="o.company_id.currency_id.symbol"/>
+                            </td>
+                            <t t-foreach="o.line_ids" t-as="rul">
+                                <!--Catégorie total charge salariale-->
+                                <t t-if="rul.category_id.code == 'RE'">
+                                    <td style="" class="centert"><span t-esc="'{:,}'.format(int(rul.amount)).replace(',', ' ')"/> <span t-esc="o.company_id.currency_id.symbol"/></td>
+                                </t>
+                                <!--Catégorie total charge patronale-->
+                                <t t-if="rul.category_id.code == 'RP'">
+                                    <td style="" class="centert"><span t-esc="'{:,}'.format(int(rul.amount)).replace(',', ' ')"/> <span t-esc="o.company_id.currency_id.symbol"/></td>
+                                </t>
+                            </t>
+                            <td style="" class="centert">
+                                173.33
+                            </td>
+                            <td style="" class="centert">
+                                <span t-esc=" o.mount_100 + o.mount_75 + o.mount_50 + o.mount_15"/>
+                            </td>
+                            <t t-foreach="o.line_ids" t-as="rul">
+                                <!-- Net de paie -->
+                                <t t-if="rul.code == 'SNP'">
+                                    <td style="" class="centert"><span t-esc="'{:,}'.format(int(rul.amount)).replace(',', ' ')"/> <span t-esc="o.company_id.currency_id.symbol"/></td>
+                                </t>
+                                <!-- Net -->
+                                <t t-if="rul.code == 'NET'">
+                                    <td style="font-size:18px;font-weight: 700;color:#4A80C0" class="centert" colspan="2" rowspan="2"><span t-esc="'{:,}'.format(int(rul.amount)).replace(',', ' ')"/> <span t-esc="o.company_id.currency_id.symbol"/></td>
+                                </t>
+                            </t>
+                        </tr>
+                        <tr>
+                            <td style="border-bottom:1px solid black;" class="centert">Année</td>
+                            <td style="border-bottom:1px solid black;" class="centert">
+                                <span t-esc="'{:,}'.format(int(o.contract_id.wage) * 12).replace(',', ' ')"/> <span t-esc="o.company_id.currency_id.symbol"/>
+                            </td>
+                            <td style="border-bottom:1px solid black;" class="centert">
+                                <span t-esc="'{:,}'.format(int(o.contract_id.travel_allowance) * 12).replace(',', ' ')"/> <span t-esc="o.company_id.currency_id.symbol"/>
+                            </td>
+                            <t t-foreach="o.line_ids" t-as="rul">
+                                <!--Catégorie total charge salariale-->
+                                <t t-if="rul.category_id.code == 'RE'">
+                                    <td style="border-bottom:1px solid black;" class="centert"><span t-esc="'{:,}'.format(int(rul.amount) * 12).replace(',', ' ')"/> <span t-esc="o.company_id.currency_id.symbol"/></td>
+                                </t>
+                                <!--Catégorie total charge patronale-->
+                                <t t-if="rul.category_id.code == 'RP'">
+                                    <td style="border-bottom:1px solid black;" class="centert"><span t-esc="'{:,}'.format(int(rul.amount) * 12).replace(',', ' ')"/> <span t-esc="o.company_id.currency_id.symbol"/></td>
+                                </t>
+                            </t>
+                            <td style="border-bottom:1px solid black;" class="centert">
+                                2079.96
+                            </td>
+                            <td style="border-bottom:1px solid black;" class="centert">
+                            </td>
+                            <t t-foreach="o.line_ids" t-as="rul">
+                                <!-- Net de paie -->
+                                <t t-if="rul.code == 'SNP'">
+                                    <td style="border-bottom:1px solid black;" class="centert"><span t-esc="'{:,}'.format(int(rul.amount) * 12).replace(',', ' ')"/> <span t-esc="o.company_id.currency_id.symbol"/></td>
+                                </t>
+                            </t>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="footer">
+                <div style="font-size: 11px;">
+                    Pour vous aider à faire valoir vos droits, conservez ce bulletin de paie sans limitation de
+                    durée.
+                </div>
+            </div>
+        </t>
+            </t>
+        </t>
+    </template>
+</odoo>

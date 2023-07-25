@@ -1,0 +1,618 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="fiche_report_cotisation">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <div class="page">
+                    <style>
+                        table, tr, th{
+                        font-size:13px;
+
+                        }
+                        .text {
+                        font-size:12px;
+                        }
+                        td {
+                        border-right:1px solid black;
+                        border-left:1px solid black;
+                        border-top:none;
+                        border-bottom:none;
+                        }
+                        tr {
+                        border-right:none;
+                        border-left:none;
+                        border-top:none;
+                        border-bottom:none;
+                        }
+                        .text {
+                        border-right:none;
+                        border-left:none;
+                        border-top:none;
+                        border-bottom:none;
+                        }
+                        .centert{
+                        text-align: center;
+                        }
+                        .tableau1{
+                        border-color:white;
+                        margin-top:5px;
+                        }
+                        .tableau2{
+                        border-color:white;
+                        }
+                    </style>
+
+                    <div style="height:100px; width:100%; border:1px solid black;">
+                        <div style="width:30%; float:left;margin-left:10px;">
+                            <table class="tableau1">
+                                <tr>
+                                    <th class="text">Date du jour</th>
+                                    <th class="text">: 05/04/22</th>
+                                </tr>
+                                <tr>
+                                    <th class="text">Heure</th>
+                                    <th class="text">: 16:34</th>
+                                </tr>
+                            </table>
+                            <br/>
+                            <table class="tableau2">
+                                <tr>
+                                    <th class="text">Edition en</th>
+                                    <th class="text">:</th>
+                                </tr>
+                            </table>
+                        </div>
+                        <div style="display:inline-block; margin-top:30px;margin-left:30px;">
+                            <center>
+                                <h1 style="font-weight:900;font-size:30px;">Etat résumé des cotisations</h1>
+                                <span>Période: du
+                                    <span t-esc="start_date" t-options='{"widget": "date"}'/>
+                                    au
+                                    <span t-esc="end_date" t-options='{"widget": "date"}'/>
+                                </span>
+                            </center>
+                        </div>
+                    </div>
+                    <p>Société:
+                        <span t-esc="datas['company_id'].name"/>
+                    </p>
+                    <div style="width:100%">
+                        <table style="width:100%">
+                            <tr style="border-top:1px solid black;">
+                                <th style="border-left:1px solid black;">Matricule:</th>
+                                <th>
+                                    <t t-if="len(datas['matricule']) >= 2">
+                                        <span t-esc="datas['matricule'][0]"/>
+                                        à
+                                        <span t-esc="datas['matricule'][-1]"/>
+                                    </t>
+                                </th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th style="border-right:1px solid black;"></th>
+                            </tr>
+                            <tr style="border-left:1px solid black;">
+                                <th style="border-left:1px solid black;"></th>
+                                <th style="height:25px"></th>
+                                <th style="height:25px"></th>
+                                <th style="height:25px"></th>
+                                <th style="height:25px"></th>
+                                <th style="height:25px"></th>
+                                <th style="height:25px"></th>
+                                <th style="height:25px"></th>
+                                <th style="height:25px"></th>
+                                <th style="height:25px"></th>
+                                <th style="height:25px"></th>
+                                <th style="border-right:1px solid black;height:25px;"></th>
+                            </tr>
+
+                            <tr>
+                                <th style="border-left:1px solid black;">Total</th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th style="border-right:1px solid black;"></th>
+                            </tr>
+                            <tr style="border:1px solid black;">
+                                <th class="centert" colspan="2" style="border-right:1px solid black;">Rubriques de
+                                    cotisations
+                                </th>
+                                <th class="centert" style="border-right:1px solid black;">Taux salarial</th>
+                                <th class="centert" style="border-right:1px solid black;">Taux patronal</th>
+                                <th class="centert" style="border-right:1px solid black;">Taux global</th>
+                                <th class="centert" style="border-right:1px solid black;">Assiette de cotisation</th>
+                                <th class="centert" style="border-right:1px solid black;">Base</th>
+                                <th class="centert" style="border-right:1px solid black;">Montant salarial</th>
+                                <th class="centert" style="border-right:1px solid black;">Montant
+                                    <br/>
+                                    patronal
+                                </th>
+                                <th class="centert" style="border-right:1px solid black;">Montant global</th>
+                                <th class="centert" style="border-right:1px solid black;" colspan="2">
+                                    Effectifs
+                                    <br/>
+                                    H.|F.
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>210</td>
+                                <td>IMPOT SUR SALAIRE</td>
+                                <td>1.20</td>
+                                <td>1.20</td>
+                                <td>2.40</td>
+                                <td>
+                                    <span t-esc="'{:,}'.format(int(datas['brut'])).replace(',', ' ')"/>
+                                </td>
+                                <td>
+                                    <span t-esc="'{:,}'.format(int(datas['brut'])).replace(',', ' ')"/>
+                                </td>
+                                <td>
+                                    <span t-esc="'{:,}'.format(int(datas['brut'] * 0.012)).replace(',', ' ')"/>
+                                </td>
+                                <td>
+                                    <span t-esc="'{:,}'.format(int(datas['brut'] * 0.012)).replace(',', ' ')"/>
+                                </td>
+                                <td>
+                                    <span t-esc="'{:,}'.format(int((datas['brut'] * 0.012) + (datas['brut'] * 0.012))).replace(',', ' ')"/>
+                                </td>
+                                <td>
+                                    <span t-esc="datas['male']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="datas['female']"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>240</td>
+                                <td>CONTRIBUTION NATIONALE</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <span t-esc="'{:,}'.format(int(datas['brut'])).replace(',', ' ')"/>
+                                </td>
+                                <td>
+                                    <span t-esc="'{:,}'.format(int(datas['brut'])).replace(',', ' ')"/>
+                                </td>
+                                <td>
+                                    <span t-esc="'{:,}'.format(int(datas['cn'])).replace(',', ' ')"/>
+                                </td>
+                                <td></td>
+                                <td>
+                                    <span t-esc="'{:,}'.format(int(datas['cn'])).replace(',', ' ')"/>
+                                </td>
+                                <td>
+                                    <span t-esc="datas['male']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="datas['female']"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>260</td>
+                                <td>IMPOT GENERAL SUR REVENU</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <span t-esc="'{:,}'.format(int(datas['brut'])).replace(',', ' ')"/>
+                                </td>
+                                <td>
+                                    <span t-esc="'{:,}'.format(int(datas['brut'])).replace(',', ' ')"/>
+                                </td>
+                                <td>
+                                    <span t-esc="'{:,}'.format(int(datas['igr'])).replace(',', ' ')"/>
+                                </td>
+                                <td></td>
+                                <td>
+                                    <span t-esc="'{:,}'.format(int(datas['igr'])).replace(',', ' ')"/>
+                                </td>
+                                <td>
+                                    <span t-esc="datas['male']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="datas['female']"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td style="background-color:#D3D3D3;">Total IMPOTS</td>
+                                <td style="background-color:#D3D3D3;"></td>
+                                <td style="background-color:#D3D3D3;"></td>
+                                <td style="background-color:#D3D3D3;"></td>
+                                <td style="background-color:#D3D3D3;"></td>
+                                <td style="background-color:#D3D3D3;"></td>
+                                <td style="background-color:#D3D3D3;">
+                                    <span t-esc="'{:,}'.format(int((datas['brut'] * 0.012)+ (int(datas['igr'])) + (int(datas['cn'])) )).replace(',', ' ')"/>
+                                </td>
+                                <td style="background-color:#D3D3D3;">
+                                    <span t-esc="'{:,}'.format(int((datas['brut'] * 0.012))).replace(',', ' ')"/>
+                                </td>
+                                <td style="background-color:#D3D3D3;">
+                                    <span t-esc="'{:,}'.format(int((datas['brut'] * 0.012) + (datas['brut'] * 0.012)) + (int(datas['cn'])) + (int(datas['igr']))).replace(',', ' ')"/>
+                                </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>282</td>
+                                <td>TAXES D'APPRENTISSAGE</td>
+                                <td></td>
+                                <td>0.40</td>
+                                <td>0.40</td>
+                                <td>
+                                    <span t-esc="'{:,}'.format(int(datas['brut'])).replace(',', ' ')"/>
+                                </td>
+                                <td>
+                                    <span t-esc="'{:,}'.format(int(datas['brut'])).replace(',', ' ')"/>
+                                </td>
+                                <td></td>
+                                <td>
+                                    <span t-esc="'{:,}'.format(int(datas['brut'] * 0.004)).replace(',', ' ') "/>
+                                </td>
+                                <td>
+                                    <span t-esc="'{:,}'.format(int(datas['brut'] * 0.004)).replace(',', ' ')"/>
+                                </td>
+                                <td>
+                                    <span t-esc="datas['male']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="datas['female']"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>283</td>
+                                <td>FPC</td>
+                                <td></td>
+                                <td>0.60</td>
+                                <td>0.60</td>
+                                <td>
+                                    <span t-esc="'{:,}'.format(int(datas['brut'])).replace(',', ' ')"/>
+                                </td>
+                                <td>
+                                    <span t-esc="'{:,}'.format(int(datas['brut'])).replace(',', ' ')"/>
+                                </td>
+                                <td></td>
+                                <td>
+                                    <span t-esc="'{:,}'.format(int(datas['brut'] * 0.006)).replace(',', ' ')"/>
+                                </td>
+                                <td>
+                                    <span t-esc="'{:,}'.format(int(datas['brut'] * 0.006)).replace(',', ' ')"/>
+                                </td>
+                                <td>
+                                    <span t-esc="datas['male']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="datas['female']"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>284</td>
+                                <td>FPC regul</td>
+                                <td></td>
+                                <td>0.60</td>
+                                <td>0.60</td>
+                                <td>
+                                    <span t-esc="'{:,}'.format(int(datas['brut'])).replace(',', ' ')"/>
+                                </td>
+                                <td>
+                                    <span t-esc="'{:,}'.format(int(datas['brut'])).replace(',', ' ')"/>
+                                </td>
+                                <td></td>
+                                <td>
+                                    <span t-esc="'{:,}'.format(int(datas['brut'] * 0.006)).replace(',', ' ')"/>
+                                </td>
+                                <td>
+                                    <span t-esc="'{:,}'.format(int(datas['brut'] * 0.006)).replace(',', ' ')"/>
+                                </td>
+                                <td>
+                                    <span t-esc="datas['male']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="datas['female']"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td style="background-color:#D3D3D3;">Total FDFP</td>
+                                <td style="background-color:#D3D3D3;"></td>
+                                <td style="background-color:#D3D3D3;"></td>
+                                <td style="background-color:#D3D3D3;"></td>
+                                <td style="background-color:#D3D3D3;"></td>
+                                <td style="background-color:#D3D3D3;"></td>
+                                <td style="background-color:#D3D3D3;"></td>
+                                <td style="background-color:#D3D3D3;">
+                                    <span t-esc="'{:,}'.format((int(datas['brut'] * 0.004))+(int(datas['brut'] * 0.006))+(int(datas['brut'] * 0.006))).replace(',', ' ')"/>
+                                </td>
+                                <td style="background-color:#D3D3D3;">
+                                    <span t-esc="'{:,}'.format((int(datas['brut'] * 0.006))+(int(datas['brut'] * 0.006)) + (int(datas['brut'] * 0.004))).replace(',', ' ')"/>
+                                </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>280</td>
+                                <td>RETENUE C.N.P.S</td>
+                                <td>6.30</td>
+                                <td>7.70</td>
+                                <td>14</td>
+                                <td>
+                                    <t t-if="int(datas['brut']) &lt; 3375000">
+                                        <span t-esc="'{:,}'.format(int(datas['brut'])).replace(',', ' ')"/>
+                                    </t>
+                                    <t t-if="int(datas['brut']) > 3375000">
+                                        <span>2 700 000</span>
+                                    </t>
+
+                                </td>
+                                <!--                                <td><span t-esc="'{:,}'.format(int(datas['brut'])).replace(',', ' ')"/></td>-->
+                                <td>
+                                    <t t-if="int(datas['brut']) &lt; 3375000">
+                                        <span t-esc="'{:,}'.format(int(datas['brut'])).replace(',', ' ')"/>
+                                    </t>
+                                    <t t-if="int(datas['brut']) > 3375000">
+                                        <span>2 700 000</span>
+                                    </t>
+
+                                </td>
+                                <td>
+                                    <t t-if="int(datas['brut']) &lt; 3375000">
+                                        <span t-esc="'{:,}'.format(int((datas['brut'] * 0.063))).replace(',', ' ')"/>
+                                    </t>
+                                    <t t-if="int(datas['brut']) > 3375000">
+                                        <span t-esc="'{:,}'.format(int((3375000 * 0.063))).replace(',', ' ')"/>
+                                    </t>
+                                </td>
+
+                                <td>
+                                    <t t-if="int(datas['brut']) &lt; 3375000">
+                                        <span t-esc="'{:,}'.format(int((datas['brut'] * 0.077))).replace(',', ' ')"/>
+                                    </t>
+                                    <t t-if="int(datas['brut']) > 3375000">
+                                        <span t-esc="'{:,}'.format(int((3375000 * 0.077))).replace(',', ' ')"/>
+                                    </t>
+                                </td>
+
+                                <td>
+                                    <t t-if="int(datas['brut']) &lt; 3375000">
+                                        <span t-esc="'{:,}'.format(int((datas['brut'] * 0.063) + (datas['brut'] * 0.077))).replace(',', ' ')"/>
+                                    </t>
+                                    <t t-if="int(datas['brut']) > 3375000">
+                                        <span t-esc="'{:,}'.format(int((3375000 * 0.063) + (3375000 * 0.077))).replace(',', ' ')"/>
+                                    </t>
+                                </td>
+                                <td>
+                                    <span t-esc="datas['male']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="datas['female']"/>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>285</td>
+                                <td>PRESTATIONS FAMILIALES</td>
+                                <td></td>
+                                <td>5</td>
+                                <td>5</td>
+                                <td>
+                                    <span t-esc="'{:,}'.format(int(datas['brut'])).replace(',', ' ')"/>
+                                </td>
+                                <td>
+                                    <span t-esc="'{:,}'.format(int(datas['brut'])).replace(',', ' ')"/>
+                                </td>
+                                <td></td>
+                                <td>
+                                    <span t-esc="'{:,}'.format(int(datas['brut'] * 0.05)).replace(',', ' ')"/>
+                                </td>
+                                <td>
+                                    <span t-esc="'{:,}'.format(int((datas['brut'] * 0.05))).replace(',', ' ')"/>
+                                </td>
+                                <td>
+                                    <span t-esc="datas['male']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="datas['female']"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>286</td>
+                                <td>ASSURANCE MATERNITE</td>
+                                <td></td>
+                                <td>0.75</td>
+                                <td>0.75</td>
+                                <td>
+                                    <span t-esc="'{:,}'.format(int(datas['brut'])).replace(',', ' ')"/>
+                                </td>
+                                <td>
+                                    <span t-esc="'{:,}'.format(int(datas['brut'])).replace(',', ' ')"/>
+                                </td>
+                                <td></td>
+                                <td>
+                                    <span t-esc="'{:,}'.format(int(datas['brut'] * 0.0075)).replace(',', ' ')"/>
+                                </td>
+                                <td>
+                                    <span t-esc="'{:,}'.format(int((datas['brut'] * 0.0075))).replace(',', ' ')"/>
+                                </td>
+                                <td>
+                                    <span t-esc="datas['male']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="datas['female']"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>287</td>
+                                <td>ACCIDENT DE TRAVAIL</td>
+                                <td></td>
+                                <td>
+                                    <span t-esc="'{:,}'.format(int(datas['taux_work_related_accident'])).replace(',', ' ') "/>
+                                </td>
+                                <td>
+                                    <span t-esc="'{:,}'.format(int(datas['taux_work_related_accident'])).replace(',', ' ')"/>
+                                </td>
+                                <td>
+                                    <span t-esc="'{:,}'.format(int(datas['brut'])).replace(',', ' ')"/>
+                                </td>
+                                <td>
+                                    <span t-esc="'{:,}'.format(int(datas['brut'])).replace(',', ' ')"/>
+                                </td>
+                                <td></td>
+                                <td>
+                                    <span t-esc="'{:,}'.format(int((datas['taux_work_related_accident']/100) * datas['brut'])).replace(',', ' ')"/>
+                                </td>
+                                <td>
+                                    <span t-esc="'{:,}'.format(int((datas['taux_work_related_accident']/100) * datas['brut'])).replace(',', ' ')"/>
+                                </td>
+                                <td>
+                                    <span t-esc="datas['male']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="datas['female']"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td style="background-color:#D3D3D3;">Total CNPS</td>
+                                <td style="background-color:#D3D3D3;"></td>
+                                <td style="background-color:#D3D3D3;"></td>
+                                <td style="background-color:#D3D3D3;"></td>
+                                <td style="background-color:#D3D3D3;"></td>
+                                <td style="background-color:#D3D3D3;"></td>
+                                <td style="background-color:#D3D3D3;">
+
+                                    <t t-if="int(datas['brut']) &lt; 3375000">
+                                        <span t-esc="'{:,}'.format(int((datas['brut'] * 0.063))).replace(',', ' ')"/>
+                                    </t>
+                                    <t t-if="int(datas['brut']) > 3375000">
+                                        <span t-esc="'{:,}'.format(int((3375000 * 0.077))).replace(',', ' ')"/>
+                                    </t>
+
+                                </td>
+                                <td style="background-color:#D3D3D3;">
+                                    <t t-if="int(datas['brut']) &lt; 3375000">
+                                        <span t-esc="'{:,}'.format((int((datas['brut'] * 0.077)))+(int(datas['brut'] * 0.0575))+(int((datas['taux_work_related_accident']/100) * datas['brut']))).replace(',', ' ')"/>
+                                    </t>
+                                    <t t-if="int(datas['brut']) > 3375000">
+                                        <span t-esc="'{:,}'.format((int((3375000 * 0.077)))+(int(datas['brut'] * 0.0575))+(int((datas['taux_work_related_accident']/100) * datas['brut']))).replace(',', ' ')"/>
+                                    </t>
+                                </td>
+                                <td style="background-color:#D3D3D3;">
+
+                                    <t t-if="int(datas['brut']) &lt; 3375000">
+                                        <span t-esc="'{:,}'.format(int((datas['brut'] * 0.063) + (datas['brut'] * 0.077)) + (int((datas['taux_work_related_accident']/100) * datas['brut'])) + (int((datas['brut'] * 0.0575)))).replace(',', ' ')"/>
+                                    </t>
+                                    <t t-if="int(datas['brut']) > 3375000">
+                                        <span t-esc="'{:,}'.format(int((3375000 * 0.063) + (3375000 * 0.077)) + (int((datas['taux_work_related_accident']/100) * datas['brut'])) + (int((datas['brut'] * 0.0575)))).replace(',', ' ')"/>
+                                    </t>
+
+                                </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>287</td>
+                                <td>CMU</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <span t-esc="'{:,}'.format(int(datas['cmu'])).replace(',', ' ')"/>
+                                </td>
+                                <td>
+                                    <span t-esc="'{:,}'.format(int(datas['cmu'])).replace(',', ' ')"/>
+                                </td>
+                                <td>
+                                    <span t-esc="'{:,}'.format(int(datas['cmu'] * 2)).replace(',', ' ')"/>
+                                </td>
+                                <td>
+                                    <span t-esc="datas['male']"/>
+                                </td>
+                                <td>
+                                    <span t-esc="datas['female']"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td style="background-color:#D3D3D3;">Total CNAM CMU</td>
+                                <td style="background-color:#D3D3D3;"></td>
+                                <td style="background-color:#D3D3D3;"></td>
+                                <td style="background-color:#D3D3D3;"></td>
+                                <td style="background-color:#D3D3D3;"></td>
+                                <td style="background-color:#D3D3D3;"></td>
+                                <td style="background-color:#D3D3D3;">
+                                    <span t-esc="'{:,}'.format(int(datas['cmu'])).replace(',', ' ')"/>
+                                </td>
+                                <td style="background-color:#D3D3D3;">
+                                    <span t-esc="'{:,}'.format(int(datas['cmu'])).replace(',', ' ')"/>
+                                </td>
+                                <td style="background-color:#D3D3D3;">
+                                    <span t-esc="'{:,}'.format(int(datas['cmu'] * 2)).replace(',', ' ')"/>
+                                </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr style="border-bottom:1px solid black;">
+                                <td></td>
+                                <td style="background-color:#D3D3D3;">Total</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td style="background-color:#D3D3D3;">
+                                    <t t-if="int(datas['brut']) &lt; 3375000">
+                                        <span t-esc="'{:,}'.format((int((datas['brut'] * 0.063)) + (int(datas['cmu'])) +(int((datas['brut'] * 0.012)+ (int(datas['igr'])) + (int(datas['cn'])))))).replace(',', ' ')"/>
+                                    </t>
+                                    <t t-if="int(datas['brut']) > 3375000">
+                                        <span t-esc="'{:,}'.format((int((3375000 * 0.063)) + (int(datas['cmu'])) +(int((datas['brut'] * 0.012)+ (int(datas['igr'])) + (int(datas['cn'])))))).replace(',', ' ')"/>
+                                    </t>
+
+                                </td>
+                                <td style="background-color:#D3D3D3;">
+
+                                    <t t-if="int(datas['brut']) &lt; 3375000">
+                                        <span t-esc="'{:,}'.format((int((datas['brut'] * 0.012)))+((int(datas['brut'] * 0.004))+(int(datas['brut'] * 0.006))+(int(datas['brut'] * 0.006)))+(int(datas['cmu']))+((int((datas['brut'] * 0.077)))+(int(datas['brut'] * 0.0575))+(int((datas['taux_work_related_accident']/100) * datas['brut'])))).replace(',', ' ')"/>
+                                    </t>
+                                    <t t-if="int(datas['brut']) > 3375000">
+                                        <span t-esc="'{:,}'.format((int((datas['brut'] * 0.012)))+((int(datas['brut'] * 0.004))+(int(datas['brut'] * 0.006))+(int(datas['brut'] * 0.006)))+(int(datas['cmu']))+((int((3375000 * 0.077)))+(int(datas['brut'] * 0.0575))+(int((datas['taux_work_related_accident']/100) * datas['brut'])))).replace(',', ' ')"/>
+                                    </t>
+                                </td>
+                                <td style="background-color:#D3D3D3;">
+                                    <t t-if="int(datas['brut']) &lt; 3375000">
+                                        <span t-esc="'{:,}'.format((int((datas['brut'] * 0.012) + (datas['brut'] * 0.012)))+((int(datas['brut'] * 0.006))+(int(datas['brut'] * 0.006)) + (int(datas['brut'] * 0.004)))+(int(datas['cmu'] * 2))+(int((datas['brut'] * 0.063) + (datas['brut'] * 0.077)) + (int((datas['taux_work_related_accident']/100) * datas['brut'])) + (int((datas['brut'] * 0.0575))))).replace(',', ' ')"/>
+                                    </t>
+                                    <t t-if="int(datas['brut']) > 3375000">
+                                        <span t-esc="'{:,}'.format((int((datas['brut'] * 0.012) + (datas['brut'] * 0.012)) + (int(datas['cn'])) + (int(datas['igr']))) + ((int(datas['brut'] * 0.006))+(int(datas['brut'] * 0.006)) + (int(datas['brut'] * 0.004)))+(int(datas['cmu'] * 2))+(int((3375000 * 0.063) + (3375000 * 0.077)) + (int((datas['taux_work_related_accident']/100) * datas['brut'])) + (int((datas['brut'] * 0.0575))))).replace(',', ' ')"/>
+                                    </t>
+
+                                </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+
+            </t>
+        </t>
+
+    </template>
+</odoo>
